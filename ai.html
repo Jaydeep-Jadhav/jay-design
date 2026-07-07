@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designing with AI | Jay, Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   OPEN DESIGN TOKEN SYSTEM
+   ============================================================ */
+:root {
+  --font-primary: 'Albert Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --fs-xs: 10px;
+  --fs-sm: 12.5px;
+  --fs-md: 13px;
+  --fs-lg: 13.33px;
+  --fs-xl: 14px;
+  --fs-2xl: 15px;
+  --fs-3xl: 16px;
+  --fs-4xl: 17px;
+  --lh-base: 1.55;
+
+  --text-primary: #262626;
+  --text-secondary: #595959;
+  --text-link: #0000ee;
+  --text-inverse: #ffffff;
+  --surface-base: #000000;
+  --surface-muted: #fafafa;
+  --surface-page: #ffffff;
+  --border-subtle: rgba(38, 38, 38, 0.09);
+
+  /* Accent: decorative & dark-surface use only, never body text on white */
+  --accent: #62FD15;
+  --accent-dim: rgba(98, 253, 21, 0.18);
+  --accent-soft: rgba(98, 253, 21, 0.09);
+
+  --sp-1: 7px; --sp-2: 8px; --sp-3: 10px; --sp-4: 12px;
+  --sp-5: 14px; --sp-6: 15px; --sp-7: 16px; --sp-8: 18px;
+
+  --r-xs: 6px; --r-sm: 13px; --r-md: 18px; --r-lg: 50px; --r-xl: 999px;
+
+  --shadow-1: rgba(21, 20, 15, 0.45) 0px 8px 20px -8px, rgba(21, 20, 15, 0.06) 0px 0px 0px 1px inset;
+  --shadow-2: rgba(38, 38, 38, 0.42) 0px 14px 26px -16px;
+  --shadow-3: rgba(0, 0, 0, 0.72) 0px 28px 60px -42px;
+  --shadow-4: rgba(0, 0, 0, 0.4) 0px 4px 12px -4px;
+
+  --dur-instant: 140ms; --dur-fast: 160ms; --dur-normal: 180ms;
+  --dur-slow: 200ms; --dur-slower: 260ms; --dur-6: 300ms;
+  --dur-7: 420ms; --dur-8: 900ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-primary);
+  font-size: var(--fs-3xl);
+  font-weight: 400;
+  line-height: var(--lh-base);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+}
+::selection { background: var(--surface-base); color: var(--text-inverse); }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--surface-base); outline-offset: 3px; border-radius: var(--r-xs); }
+
+.skip-link {
+  position: absolute; left: var(--sp-7); top: -60px;
+  background: var(--surface-base); color: var(--text-inverse);
+  padding: var(--sp-3) var(--sp-8); border-radius: var(--r-xl);
+  z-index: 100; font-size: var(--fs-xl);
+  transition: top var(--dur-fast) var(--ease);
+}
+.skip-link:focus { top: var(--sp-7); }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+.container-narrow { max-width: 820px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-logo { font-weight: 800; font-size: var(--fs-4xl); letter-spacing: -0.02em; display: flex; align-items: center; gap: var(--sp-3); }
+.nav-logo .dot { width: 9px; height: 9px; background: var(--accent); border-radius: var(--r-xl); display: inline-block; box-shadow: 0 0 0 1.5px rgba(38,38,38,0.85); }
+.nav-links { display: flex; align-items: center; gap: var(--sp-2); list-style: none; }
+.nav-links a {
+  font-size: var(--fs-xl); font-weight: 500; color: var(--text-secondary);
+  padding: var(--sp-3) var(--sp-5); border-radius: var(--r-xl);
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  min-height: 44px; display: inline-flex; align-items: center;
+}
+.nav-links a:hover { color: var(--text-primary); background: var(--surface-muted); }
+.nav-links a[aria-current="page"] { color: var(--text-primary); font-weight: 600; background: var(--surface-muted); }
+.nav-cta {
+  background: var(--surface-base) !important; color: var(--text-inverse) !important;
+  font-weight: 600 !important; padding: var(--sp-3) var(--sp-8) !important;
+  box-shadow: var(--shadow-4);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease) !important;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: var(--shadow-2); background: var(--surface-base) !important; }
+@media (max-width: 720px) { .nav-links li:not(.nav-cta-li) { display: none; } }
+
+/* HERO */
+.page-hero {
+  padding: clamp(64px, 11vh, 120px) 0 clamp(40px, 6vh, 72px);
+  position: relative; overflow: hidden;
+  /* Blueprint dot grid */
+  background-image: radial-gradient(rgba(38,38,38,0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+.page-hero::before {
+  content: ''; position: absolute; top: -220px; left: -160px;
+  width: 520px; height: 520px;
+  background: radial-gradient(closest-side, var(--accent-soft), transparent);
+  border-radius: 50%; pointer-events: none;
+}
+
+/* ---------- Design-tool decor layer ---------- */
+.hero-decor { position: absolute; inset: 0; pointer-events: none; }
+.ruler { position: absolute; opacity: 0.55; }
+.ruler-top {
+  top: 0; left: 0; right: 0; height: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  background-image:
+    repeating-linear-gradient(to right, rgba(38,38,38,0.24) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(to right, rgba(38,38,38,0.34) 0 1px, transparent 1px 96px);
+  background-size: auto 5px, auto 10px;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+}
+.ruler-left {
+  top: 0; bottom: 0; left: 0; width: 14px;
+  border-right: 1px solid var(--border-subtle);
+  background-image:
+    repeating-linear-gradient(to bottom, rgba(38,38,38,0.24) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(to bottom, rgba(38,38,38,0.34) 0 1px, transparent 1px 96px);
+  background-size: 5px auto, 10px auto;
+  background-repeat: repeat-y;
+  background-position: right top;
+}
+.crop { position: absolute; width: 18px; height: 18px; opacity: 0.32; }
+.crop.tl { top: 28px; left: 28px; border-top: 1.5px solid #262626; border-left: 1.5px solid #262626; }
+.crop.tr { top: 28px; right: 28px; border-top: 1.5px solid #262626; border-right: 1.5px solid #262626; }
+.crop.bl { bottom: 22px; left: 28px; border-bottom: 1.5px solid #262626; border-left: 1.5px solid #262626; }
+.crop.br { bottom: 22px; right: 28px; border-bottom: 1.5px solid #262626; border-right: 1.5px solid #262626; }
+.phi-line {
+  position: absolute; top: 14px; bottom: 0; left: 61.8%;
+  border-left: 1px dashed rgba(38,38,38,0.13);
+}
+.phi-line::after {
+  content: '61.8%';
+  position: absolute; top: 10px; left: 7px;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
+  color: rgba(38,38,38,0.38);
+}
+.cursor-group {
+  position: absolute;
+  right: clamp(48px, 12vw, 190px);
+  top: clamp(150px, 24vh, 240px);
+  display: flex; flex-direction: column;
+  align-items: flex-start; gap: 3px;
+  animation: cursorFloat 6s var(--ease) infinite;
+}
+.cursor-group svg { width: 20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18)); }
+.cursor-chip {
+  margin-left: 15px;
+  background: var(--accent); color: #171717;
+  font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.02em;
+  padding: 3px 10px; border-radius: var(--r-xl);
+  box-shadow: var(--shadow-4); white-space: nowrap;
+}
+@keyframes cursorFloat {
+  0%, 100% { transform: translate(0, 0); }
+  35% { transform: translate(-14px, 10px); }
+  70% { transform: translate(8px, -8px); }
+}
+@media (max-width: 820px) {
+  .cursor-group, .phi-line, .ruler-left { display: none; }
+}
+
+/* Highlighter accent for key words */
+.hl {
+  background-image: linear-gradient(transparent 62%, var(--accent-dim) 62%, var(--accent-dim) 94%, transparent 94%);
+  border-radius: 2px;
+}
+.breadcrumb {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  font-size: var(--fs-md); color: var(--text-secondary);
+  margin-bottom: var(--sp-8);
+}
+.breadcrumb a { border-radius: var(--r-xs); transition: color var(--dur-fast) var(--ease); }
+.breadcrumb a:hover { color: var(--text-primary); }
+.page-hero h1 {
+  font-size: clamp(34px, 5.6vw, 62px); font-weight: 800;
+  letter-spacing: -0.035em; line-height: 1.05;
+  max-width: 18ch; margin-bottom: var(--sp-8);
+}
+.page-hero h1 .muted { color: rgba(38,38,38,0.32); }
+.page-lede {
+  font-size: clamp(16px, 2vw, 19px); color: var(--text-secondary);
+  max-width: 56ch; margin-bottom: calc(var(--sp-8) * 1.5);
+}
+.page-lede strong { color: var(--text-primary); font-weight: 600; }
+.tldr {
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  padding: clamp(20px, 3vw, 28px);
+  max-width: 720px;
+}
+.tldr .label {
+  font-size: var(--fs-sm); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-secondary); margin-bottom: var(--sp-3);
+}
+.tldr p { font-size: var(--fs-2xl); }
+
+/* SECTIONS */
+section { padding: clamp(48px, 8vh, 88px) 0; }
+.kicker {
+  font-size: var(--fs-sm); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-secondary); display: block;
+  margin-bottom: var(--sp-2);
+}
+.kicker::before {
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px rgba(38,38,38,0.2);
+  margin-right: var(--sp-2);
+}
+h2.section-title {
+  font-size: clamp(24px, 3.4vw, 36px); font-weight: 800;
+  letter-spacing: -0.03em; margin-bottom: var(--sp-7);
+  max-width: 24ch;
+}
+.section-intro { color: var(--text-secondary); max-width: 58ch; margin-bottom: calc(var(--sp-8) * 2); }
+
+/* LEDGER: delegate vs keep */
+.ledger { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+@media (max-width: 820px) { .ledger { grid-template-columns: 1fr; } }
+.ledger-col {
+  border-radius: var(--r-md);
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--border-subtle);
+}
+.ledger-col.delegate { background: var(--surface-muted); }
+.ledger-col.keep { background: var(--surface-base); color: var(--text-inverse); }
+.ledger-col h3 {
+  font-size: var(--fs-4xl); font-weight: 700;
+  display: flex; align-items: center; gap: var(--sp-3);
+  margin-bottom: var(--sp-8);
+}
+.ledger-col .badge {
+  font-size: var(--fs-xs); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 4px var(--sp-4); border-radius: var(--r-xl);
+}
+.delegate .badge { background: rgba(38,38,38,0.08); color: var(--text-secondary); }
+.keep .badge { background: var(--accent); color: #171717; }
+.keep li svg { color: var(--accent); }
+.ledger-col ul { list-style: none; display: grid; gap: var(--sp-4); }
+.ledger-col li {
+  display: flex; gap: var(--sp-4); align-items: flex-start;
+  font-size: var(--fs-2xl); padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.keep li { border-bottom-color: rgba(255,255,255,0.1); }
+.ledger-col li:last-child { border-bottom: none; }
+.ledger-col li .why { display: block; font-size: var(--fs-md); margin-top: 3px; }
+.delegate li .why { color: var(--text-secondary); }
+.keep li .why { color: rgba(255,255,255,0.6); }
+.ledger-col li svg { flex-shrink: 0; margin-top: 3px; }
+
+/* WORKFLOW STEPS */
+.flow { display: grid; gap: var(--sp-4); counter-reset: step; }
+.flow-step {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: clamp(14px, 2.4vw, 28px);
+  align-items: start;
+  background: var(--surface-page);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-sm);
+  padding: clamp(18px, 2.6vw, 26px);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.flow-step:hover { transform: translateY(-2px); box-shadow: var(--shadow-4); }
+.flow-step:hover .step-num { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.flow-step .step-num {
+  counter-increment: step;
+  width: 44px; height: 44px;
+  border-radius: var(--r-xl);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: var(--fs-2xl);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.flow-step .step-num::before { content: counter(step); }
+.flow-step h4 { font-size: var(--fs-4xl); font-weight: 700; margin-bottom: var(--sp-2); }
+.flow-step p { font-size: var(--fs-2xl); color: var(--text-secondary); max-width: 60ch; }
+.flow-step .who {
+  font-size: var(--fs-xs); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 5px var(--sp-4); border-radius: var(--r-xl);
+  white-space: nowrap; align-self: start;
+}
+.who.human { background: var(--surface-base); color: var(--text-inverse); }
+.who.ai { background: var(--surface-muted); border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+.who.both { background: transparent; border: 1.5px dashed rgba(38,38,38,0.25); color: var(--text-secondary); }
+@media (max-width: 640px) {
+  .flow-step { grid-template-columns: 44px 1fr; }
+  .flow-step .who { grid-column: 2; justify-self: start; margin-top: var(--sp-2); }
+}
+
+/* CASE STRIP */
+.case-strip {
+  background: var(--surface-muted);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
+@media (max-width: 820px) { .case-grid { grid-template-columns: 1fr; } }
+.case-card {
+  background: var(--surface-page);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  padding: clamp(20px, 2.8vw, 30px);
+  display: flex; flex-direction: column;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.case-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); border-color: rgba(98, 253, 21, 0.55); }
+.case-card .metric {
+  font-size: clamp(26px, 3vw, 34px); font-weight: 800;
+  letter-spacing: -0.03em; margin-bottom: var(--sp-2);
+}
+.case-card h4 { font-size: var(--fs-3xl); font-weight: 700; margin-bottom: var(--sp-3); }
+.case-card p { font-size: var(--fs-xl); color: var(--text-secondary); flex: 1; }
+.case-card .foot {
+  margin-top: var(--sp-7); padding-top: var(--sp-5);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--fs-sm); color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* STACK */
+.stack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); }
+@media (max-width: 640px) { .stack-grid { grid-template-columns: 1fr; } }
+.stack-item {
+  display: flex; gap: var(--sp-5); align-items: flex-start;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-sm);
+  padding: var(--sp-8);
+  transition: background var(--dur-fast) var(--ease);
+}
+.stack-item:hover { background: var(--surface-muted); }
+.stack-item:hover .icon { background: var(--accent-dim); border-color: rgba(98, 253, 21, 0.5); }
+.stack-item .icon {
+  width: 38px; height: 38px; flex-shrink: 0;
+  border-radius: var(--r-xs);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.stack-item h4 { font-size: var(--fs-3xl); font-weight: 700; margin-bottom: 2px; }
+.stack-item p { font-size: var(--fs-xl); color: var(--text-secondary); }
+
+/* POV / QUOTE */
+.pov {
+  background: var(--surface-base);
+  color: var(--text-inverse);
+  border-radius: clamp(18px, 3vw, 32px);
+  margin: 0 clamp(12px, 2vw, 24px);
+  position: relative; overflow: hidden;
+}
+.pov::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(560px 280px at 80% 15%, rgba(98, 253, 21, 0.11), transparent);
+  pointer-events: none;
+}
+.pov-inner { position: relative; padding: clamp(56px, 9vh, 96px) 0; text-align: center; }
+.pov blockquote {
+  font-size: clamp(22px, 3.4vw, 34px);
+  font-weight: 700; letter-spacing: -0.025em;
+  line-height: 1.25; max-width: 26ch;
+  margin: 0 auto var(--sp-8);
+}
+.pov .attribution { font-size: var(--fs-xl); color: rgba(255,255,255,0.55); }
+.pov .attribution::before {
+  content: '';
+  display: inline-block;
+  width: 22px; height: 2px;
+  background: var(--accent);
+  border-radius: var(--r-xl);
+  margin-right: var(--sp-3);
+  vertical-align: middle;
+}
+
+/* CTA */
+.cta-final { text-align: center; }
+.cta-final h2 {
+  font-size: clamp(28px, 4.6vw, 48px); font-weight: 800;
+  letter-spacing: -0.035em; line-height: 1.08;
+  max-width: 20ch; margin: 0 auto var(--sp-7);
+}
+.cta-final p { color: var(--text-secondary); max-width: 46ch; margin: 0 auto calc(var(--sp-8) * 2); }
+.cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: var(--sp-4); }
+.btn {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  min-height: 48px; padding: var(--sp-4) calc(var(--sp-8) + 8px);
+  border-radius: var(--r-xl);
+  font-family: var(--font-primary);
+  font-size: var(--fs-2xl); font-weight: 600;
+  cursor: pointer; border: none;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.btn-primary { background: var(--surface-base); color: var(--text-inverse); box-shadow: var(--shadow-1); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.btn-ghost { background: transparent; color: var(--text-primary); border: 1.5px solid rgba(38,38,38,0.18); }
+.btn-ghost:hover { background: var(--surface-muted); border-color: rgba(38,38,38,0.34); }
+.btn svg { transition: transform var(--dur-fast) var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+
+/* FOOTER */
+.footer { border-top: 1px solid var(--border-subtle); padding: var(--sp-8) 0 calc(var(--sp-8) * 2); }
+.footer-inner {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: var(--sp-7);
+  font-size: var(--fs-md); color: var(--text-secondary);
+}
+.footer-links { display: flex; gap: var(--sp-2); list-style: none; }
+.footer-links a {
+  padding: var(--sp-2) var(--sp-4); border-radius: var(--r-xl);
+  min-height: 44px; display: inline-flex; align-items: center;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.footer-links a:hover { background: var(--surface-muted); color: var(--text-primary); }
+
+/* MOTION */
+.reveal { opacity: 0; transform: translateY(18px); animation: reveal var(--dur-8) var(--ease) forwards; }
+.reveal.d1 { animation-delay: 60ms; }
+.reveal.d2 { animation-delay: 140ms; }
+.reveal.d3 { animation-delay: 220ms; }
+@keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+.scroll-reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-7) var(--ease), transform var(--dur-7) var(--ease); }
+.scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal, .scroll-reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Jay, Product Designer, home"><span class="dot" aria-hidden="true"></span>jay.design</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="#" aria-current="page">AI</a></li>
+        <li><a href="index.html#writing">Writing</a></li>
+        <li><a href="index.html#playground">Playground</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li class="nav-cta-li"><a href="index.html#contact" class="nav-cta">Let's talk</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="page-hero" aria-labelledby="page-title">
+  <div class="hero-decor" aria-hidden="true">
+    <div class="ruler ruler-top"></div>
+    <div class="ruler ruler-left"></div>
+    <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
+    <div class="phi-line"></div>
+    <div class="cursor-group">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 3l14 8-6.5 1.5L9 19 5 3z" fill="#62FD15" stroke="#262626" stroke-width="1.3" stroke-linejoin="round"/>
+      </svg>
+      <span class="cursor-chip">ai &middot; drafting, jay &middot; deciding</span>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="breadcrumb reveal" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>Designing with AI</span>
+    </nav>
+    <h1 id="page-title" class="reveal d1">AI didn't replace my process. It <span class="hl">sharpened</span> <span class="muted">where my judgment matters.</span></h1>
+    <p class="page-lede reveal d2">Most designers say they "use AI tools." This page shows the actual operating system: <strong>what I delegate, what I never delegate, and the receipts.</strong> No hype, no doom. Just how the work gets done in 2026.</p>
+    <div class="tldr reveal d3">
+      <div class="label">TL;DR for hiring managers</div>
+      <p>AI compresses my execution time by roughly half. I reinvest that time into research depth, stakeholder alignment, and design decisions that AI can't make. The output isn't faster mediocrity. It's more time spent on the parts that determine whether a product wins.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE LEDGER -->
+<section aria-labelledby="ledger-title">
+  <div class="container">
+    <span class="kicker scroll-reveal">The operating principle</span>
+    <h2 class="section-title scroll-reveal" id="ledger-title">A clear ledger: delegated vs. defended</h2>
+    <p class="section-intro scroll-reveal">Every task in my workflow sits on one side of this line. The line isn't about capability. It's about accountability. If a decision shapes user trust or business direction, it stays with me.</p>
+    <div class="ledger">
+      <div class="ledger-col delegate scroll-reveal">
+        <h3>Delegated to AI <span class="badge">Speed</span></h3>
+        <ul>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>First-pass interview transcription & coding
+              <span class="why">Tagging 12 interviews took days. Now hours. I audit every tag.</span>
+            </span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>Token systems to working prototypes
+              <span class="why">Design tokens to interactive HTML in an afternoon, not a sprint.</span>
+            </span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>Competitive scans & desk research
+              <span class="why">Broad coverage fast. I verify sources and pull the signal myself.</span>
+            </span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>Documentation drafts & spec boilerplate
+              <span class="why">Handoff docs, state tables, edge-case checklists. I edit, AI drafts.</span>
+            </span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>Variant exploration at volume
+              <span class="why">20 directions in the time one used to take. Taste picks the winner.</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="ledger-col keep scroll-reveal">
+        <h3>Defended as human <span class="badge">Judgment</span></h3>
+        <ul>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Problem framing & research questions
+              <span class="why">Ask the wrong question and everything downstream is confidently wrong.</span>
+            </span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Live user conversations
+              <span class="why">The insight is in the hesitation, the sigh, the workaround they're embarrassed about.</span>
+            </span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Design decisions & tradeoffs
+              <span class="why">AI proposes. I decide, and I own the consequences in the retro.</span>
+            </span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Stakeholder alignment & facilitation
+              <span class="why">Getting a room to agree is a contact sport. No model does it for you.</span>
+            </span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Ethical calls & dark-pattern refusals
+              <span class="why">Someone has to say "we shouldn't." That someone has a name on the design.</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section aria-labelledby="flow-title" style="padding-top: 0;">
+  <div class="container">
+    <span class="kicker scroll-reveal">The workflow</span>
+    <h2 class="section-title scroll-reveal" id="flow-title">One loop, from question to shipped screen</h2>
+    <p class="section-intro scroll-reveal">This is the loop I ran on Onroute and run on every project since. Each step is labeled with who leads it.</p>
+    <div class="flow">
+      <div class="flow-step scroll-reveal">
+        <div class="step-num" aria-hidden="true"></div>
+        <div>
+          <h4>Frame the problem</h4>
+          <p>Define the job to be done, the riskiest assumption, and what evidence would change my mind. This framing is the highest-leverage 10% of the project.</p>
+        </div>
+        <span class="who human">Human</span>
+      </div>
+      <div class="flow-step scroll-reveal">
+        <div class="step-num" aria-hidden="true"></div>
+        <div>
+          <h4>Desk research & competitive scan</h4>
+          <p>AI does broad coverage across markets, patterns, and prior art. I interrogate the output, verify sources, and kill anything that smells like confident hallucination.</p>
+        </div>
+        <span class="who ai">AI-led</span>
+      </div>
+      <div class="flow-step scroll-reveal">
+        <div class="step-num" aria-hidden="true"></div>
+        <div>
+          <h4>Talk to users</h4>
+          <p>Interviews and usability sessions, run live by me. The interview guide gets AI stress-testing beforehand: "what leading questions did I miss?"</p>
+        </div>
+        <span class="who human">Human</span>
+      </div>
+      <div class="flow-step scroll-reveal">
+        <div class="step-num" aria-hidden="true"></div>
+        <div>
+          <h4>Synthesize</h4>
+          <p>AI produces first-pass affinity clusters from transcripts. I re-sort, challenge the clusters, and write the insights. The interpretation is the deliverable, and it's mine.</p>
+        </div>
+        <span class="who both">Shared</span>
+      </div>
+      <div class="flow-step scroll-reveal">
+        <div class="step-num" aria-hidden="true"></div>
+        <div>
+          <h4>Explore wide, decide narrow</h4>
+          <p>Prompt-to-prototype lets me test 5 directions in the time one mockup used to take. Then judgment collapses the field: one direction, defended with evidence.</p>
+        </div>
+        <span class="who both">Shared</span>
+      </div>
+      <div class="flow-step scroll-reveal">
+        <div class="step-num" aria-hidden="true"></div>
+        <div>
+          <h4>Craft, spec, ship</h4>
+          <p>Final UI decisions, accessibility passes, and edge-state design by hand. AI drafts the handoff docs and state tables. Engineers get specs, not screenshots.</p>
+        </div>
+        <span class="who human">Human</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECEIPTS -->
+<section class="case-strip" aria-labelledby="receipts-title">
+  <div class="container">
+    <span class="kicker scroll-reveal">The receipts</span>
+    <h2 class="section-title scroll-reveal" id="receipts-title">Claims are cheap. Here's the evidence.</h2>
+    <div class="case-grid">
+      <div class="case-card scroll-reveal">
+        <div class="metric">7 days</div>
+        <h4>Full research sprint, solo</h4>
+        <p>Research brief, interview guide, 12 sessions, affinity map, survey, and usability notes. AI compressed synthesis; the interviews and insights were all human.</p>
+        <div class="foot">See it inside the Onroute case study →</div>
+      </div>
+      <div class="case-card scroll-reveal">
+        <div class="metric">1 afternoon</div>
+        <h4>Token system to live prototype</h4>
+        <p>Took a full design token spec and turned it into a working, accessible HTML prototype the same day. Stakeholders clicked, not imagined.</p>
+        <div class="foot">This site is built the same way →</div>
+      </div>
+      <div class="case-card scroll-reveal">
+        <div class="metric">3 tools</div>
+        <h4>Custom AI workflows I built</h4>
+        <p>I don't just use AI, I program it. Custom skills for idea validation, structured learning, and de-AI-ifying prose. Built, tested, and used weekly.</p>
+        <div class="foot">Details in the Playground →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section aria-labelledby="stack-title">
+  <div class="container">
+    <span class="kicker scroll-reveal">The stack</span>
+    <h2 class="section-title scroll-reveal" id="stack-title">Tools are boring. How you wire them isn't.</h2>
+    <div class="stack-grid">
+      <div class="stack-item scroll-reveal">
+        <div class="icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <h4>LLM as research assistant</h4>
+          <p>Synthesis, coding, stress-testing my own bias. Never as a substitute for talking to users.</p>
+        </div>
+      </div>
+      <div class="stack-item scroll-reveal">
+        <div class="icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div>
+          <h4>Prompt-to-prototype</h4>
+          <p>Design tokens in, working HTML/CSS out. Interactive prototypes that engineers can inspect.</p>
+        </div>
+      </div>
+      <div class="stack-item scroll-reveal">
+        <div class="icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>
+        </div>
+        <div>
+          <h4>Figma + MCP pipelines</h4>
+          <p>Design system work and file automation connected directly to AI. Less pixel-pushing, more system thinking.</p>
+        </div>
+      </div>
+      <div class="stack-item scroll-reveal">
+        <div class="icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        </div>
+        <div>
+          <h4>Custom skills & agents</h4>
+          <p>Reusable AI workflows I authored for validation, synthesis, and writing. Documented and versioned.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POV -->
+<div class="pov">
+  <div class="pov-inner">
+    <div class="container">
+      <blockquote class="scroll-reveal">"The designers who thrive won't be the ones who resist AI or worship it. They'll be the ones who know exactly where it ends and they begin."</blockquote>
+      <div class="attribution scroll-reveal">My working thesis, tested weekly</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-final" id="contact">
+  <div class="container">
+    <h2 class="scroll-reveal">Want a designer who's <span class="hl">already living in 2026?</span></h2>
+    <p class="scroll-reveal">I bring the research rigor of a traditional process at the speed of an AI-native one. Let's talk about what that does for your roadmap.</p>
+    <div class="cta-actions scroll-reveal">
+      <a href="mailto:hello@example.com" class="btn btn-primary">Get in touch
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="index.html#work" class="btn btn-ghost">See the case studies</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>© 2026 Jay · Designed & built by me, with AI as the intern</span>
+    <ul class="footer-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#writing">Writing</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">Dribbble</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const targets = document.querySelectorAll('.scroll-reveal');
+if (prefersReduced) {
+  targets.forEach(el => el.classList.add('visible'));
+} else {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(el => io.observe(el));
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onroute Case Study | Jay, Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   OPEN DESIGN TOKEN SYSTEM
+   ============================================================ */
+:root {
+  --font-primary: 'Albert Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --fs-xs: 10px; --fs-sm: 12.5px; --fs-md: 13px; --fs-lg: 13.33px;
+  --fs-xl: 14px; --fs-2xl: 15px; --fs-3xl: 16px; --fs-4xl: 17px;
+  --lh-base: 1.55;
+
+  --text-primary: #262626;
+  --text-secondary: #595959;
+  --text-inverse: #ffffff;
+  --surface-base: #000000;
+  --surface-muted: #fafafa;
+  --surface-page: #ffffff;
+  --border-subtle: rgba(38, 38, 38, 0.09);
+
+  /* Accent: decorative & dark-surface use only, never body text on white */
+  --accent: #62FD15;
+  --accent-dim: rgba(98, 253, 21, 0.18);
+  --accent-soft: rgba(98, 253, 21, 0.09);
+
+  /* Case brand: Onroute indigo */
+  --onroute: #323A93;
+  --onroute-deep: #262C73;
+  --onroute-soft: rgba(50, 58, 147, 0.08);
+
+  --sp-1: 7px; --sp-2: 8px; --sp-3: 10px; --sp-4: 12px;
+  --sp-5: 14px; --sp-6: 15px; --sp-7: 16px; --sp-8: 18px;
+
+  --r-xs: 6px; --r-sm: 13px; --r-md: 18px; --r-lg: 50px; --r-xl: 999px;
+
+  --shadow-1: rgba(21, 20, 15, 0.45) 0px 8px 20px -8px, rgba(21, 20, 15, 0.06) 0px 0px 0px 1px inset;
+  --shadow-2: rgba(38, 38, 38, 0.42) 0px 14px 26px -16px;
+  --shadow-3: rgba(0, 0, 0, 0.72) 0px 28px 60px -42px;
+  --shadow-4: rgba(0, 0, 0, 0.4) 0px 4px 12px -4px;
+
+  --dur-instant: 140ms; --dur-fast: 160ms; --dur-normal: 180ms;
+  --dur-slow: 200ms; --dur-slower: 260ms; --dur-6: 300ms;
+  --dur-7: 420ms; --dur-8: 900ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-primary);
+  font-size: var(--fs-3xl); font-weight: 400;
+  line-height: var(--lh-base);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+}
+::selection { background: var(--surface-base); color: var(--text-inverse); }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--surface-base); outline-offset: 3px; border-radius: var(--r-xs); }
+img { max-width: 100%; display: block; }
+
+.skip-link {
+  position: absolute; left: var(--sp-7); top: -60px;
+  background: var(--surface-base); color: var(--text-inverse);
+  padding: var(--sp-3) var(--sp-8); border-radius: var(--r-xl);
+  z-index: 100; font-size: var(--fs-xl);
+  transition: top var(--dur-fast) var(--ease);
+}
+.skip-link:focus { top: var(--sp-7); }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+.container-narrow { max-width: 780px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-logo { font-weight: 800; font-size: var(--fs-4xl); letter-spacing: -0.02em; display: flex; align-items: center; gap: var(--sp-3); }
+.nav-logo .dot { width: 9px; height: 9px; background: var(--accent); border-radius: var(--r-xl); display: inline-block; box-shadow: 0 0 0 1.5px rgba(38,38,38,0.85); }
+.nav-links { display: flex; align-items: center; gap: var(--sp-2); list-style: none; }
+.nav-links a {
+  font-size: var(--fs-xl); font-weight: 500; color: var(--text-secondary);
+  padding: var(--sp-3) var(--sp-5); border-radius: var(--r-xl);
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  min-height: 44px; display: inline-flex; align-items: center;
+}
+.nav-links a:hover { color: var(--text-primary); background: var(--surface-muted); }
+.nav-links a[aria-current="page"] { color: var(--text-primary); font-weight: 600; background: var(--surface-muted); }
+.nav-cta {
+  background: var(--surface-base) !important; color: var(--text-inverse) !important;
+  font-weight: 600 !important; padding: var(--sp-3) var(--sp-8) !important;
+  box-shadow: var(--shadow-4);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease) !important;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: var(--shadow-2); background: var(--surface-base) !important; }
+@media (max-width: 720px) { .nav-links li:not(.nav-cta-li) { display: none; } }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.page-hero {
+  padding: clamp(56px, 9vh, 100px) 0 clamp(40px, 6vh, 64px);
+  position: relative; overflow: hidden;
+  background-image: radial-gradient(rgba(38,38,38,0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+.page-hero::before {
+  content: ''; position: absolute; top: -220px; right: -160px;
+  width: 560px; height: 560px;
+  background: radial-gradient(closest-side, var(--onroute-soft), transparent);
+  border-radius: 50%; pointer-events: none;
+}
+.hero-decor { position: absolute; inset: 0; pointer-events: none; }
+.ruler { position: absolute; opacity: 0.55; }
+.ruler-top {
+  top: 0; left: 0; right: 0; height: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  background-image:
+    repeating-linear-gradient(to right, rgba(38,38,38,0.24) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(to right, rgba(38,38,38,0.34) 0 1px, transparent 1px 96px);
+  background-size: auto 5px, auto 10px;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+}
+.ruler-left {
+  top: 0; bottom: 0; left: 0; width: 14px;
+  border-right: 1px solid var(--border-subtle);
+  background-image:
+    repeating-linear-gradient(to bottom, rgba(38,38,38,0.24) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(to bottom, rgba(38,38,38,0.34) 0 1px, transparent 1px 96px);
+  background-size: 5px auto, 10px auto;
+  background-repeat: repeat-y;
+  background-position: right top;
+}
+.crop { position: absolute; width: 18px; height: 18px; opacity: 0.32; }
+.crop.tl { top: 28px; left: 28px; border-top: 1.5px solid #262626; border-left: 1.5px solid #262626; }
+.crop.tr { top: 28px; right: 28px; border-top: 1.5px solid #262626; border-right: 1.5px solid #262626; }
+.crop.bl { bottom: 22px; left: 28px; border-bottom: 1.5px solid #262626; border-left: 1.5px solid #262626; }
+.crop.br { bottom: 22px; right: 28px; border-bottom: 1.5px solid #262626; border-right: 1.5px solid #262626; }
+.phi-line { position: absolute; top: 14px; bottom: 0; left: 61.8%; border-left: 1px dashed rgba(38,38,38,0.13); }
+.phi-line::after {
+  content: '61.8%'; position: absolute; top: 10px; left: 7px;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
+  color: rgba(38,38,38,0.38);
+}
+@media (max-width: 820px) { .phi-line, .ruler-left { display: none; } }
+
+.breadcrumb {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  font-size: var(--fs-md); color: var(--text-secondary);
+  margin-bottom: var(--sp-8);
+}
+.breadcrumb a { border-radius: var(--r-xs); transition: color var(--dur-fast) var(--ease); }
+.breadcrumb a:hover { color: var(--text-primary); }
+
+.case-tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-bottom: var(--sp-7); }
+.tag {
+  font-size: var(--fs-sm); font-weight: 600;
+  padding: 5px var(--sp-4); border-radius: var(--r-xl);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+.tag.brand { background: var(--onroute); border-color: var(--onroute); color: #fff; }
+
+.page-hero h1 {
+  font-size: clamp(32px, 5.2vw, 58px);
+  font-weight: 800; letter-spacing: -0.035em; line-height: 1.06;
+  max-width: 20ch; margin-bottom: var(--sp-8);
+}
+.page-hero h1 .hl {
+  background-image: linear-gradient(transparent 62%, var(--accent-dim) 62%, var(--accent-dim) 94%, transparent 94%);
+  border-radius: 2px;
+}
+.page-lede {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--text-secondary);
+  max-width: 56ch;
+  margin-bottom: calc(var(--sp-8) * 2);
+}
+
+/* Meta grid */
+.meta-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-5);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--border-subtle);
+}
+@media (max-width: 820px) { .meta-grid { grid-template-columns: repeat(2, 1fr); } }
+.meta-grid .label {
+  font-size: var(--fs-xs); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--text-secondary); margin-bottom: 4px;
+}
+.meta-grid .value { font-size: var(--fs-2xl); font-weight: 600; }
+
+/* ============================================================
+   BANNER
+   ============================================================ */
+.banner { padding: clamp(24px, 4vh, 48px) 0 0; }
+.banner-frame {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--onroute) 0%, var(--onroute-deep) 100%);
+  box-shadow: var(--shadow-2);
+  border: 1px solid var(--border-subtle);
+}
+.banner-frame img { width: 100%; height: auto; }
+
+/* ============================================================
+   OUTCOME BAND (top)
+   ============================================================ */
+.stat-band { padding: clamp(40px, 6vh, 72px) 0; }
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); }
+@media (max-width: 820px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat-card {
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  padding: clamp(18px, 2.6vw, 28px);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-4); border-color: rgba(98, 253, 21, 0.55); }
+.stat-card .num {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: var(--sp-3);
+}
+.stat-card p { font-size: var(--fs-xl); color: var(--text-secondary); }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section { padding: clamp(44px, 7vh, 80px) 0; }
+.kicker {
+  font-size: var(--fs-sm); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-secondary); display: block;
+  margin-bottom: var(--sp-2);
+}
+.kicker::before {
+  content: ''; display: inline-block;
+  width: 7px; height: 7px; border-radius: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px rgba(38,38,38,0.2);
+  margin-right: var(--sp-2);
+}
+h2.section-title {
+  font-size: clamp(24px, 3.4vw, 36px);
+  font-weight: 800; letter-spacing: -0.03em;
+  margin-bottom: var(--sp-7); max-width: 26ch;
+}
+.prose p { color: var(--text-secondary); max-width: 62ch; margin-bottom: var(--sp-7); }
+.prose p strong { color: var(--text-primary); font-weight: 600; }
+.prose p:last-child { margin-bottom: 0; }
+
+/* Story card (the Priya scenario) */
+.story {
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--onroute);
+  border-radius: var(--r-md);
+  padding: clamp(20px, 3vw, 30px);
+  max-width: 720px;
+  margin-top: var(--sp-7);
+}
+.story .label {
+  font-size: var(--fs-xs); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--text-secondary); margin-bottom: var(--sp-3);
+}
+.story p { font-size: var(--fs-2xl); color: var(--text-primary); }
+
+/* Evidence note */
+.evidence {
+  display: flex; gap: var(--sp-5); align-items: flex-start;
+  background: var(--surface-page);
+  border: 1.5px dashed rgba(98, 253, 21, 0.65);
+  border-radius: var(--r-sm);
+  padding: var(--sp-8);
+  max-width: 720px;
+  margin-top: var(--sp-8);
+}
+.evidence svg { flex-shrink: 0; margin-top: 2px; }
+.evidence p { font-size: var(--fs-xl); color: var(--text-secondary); }
+.evidence p strong { color: var(--text-primary); }
+
+/* ============================================================
+   LIFECYCLE FLOW
+   ============================================================ */
+.lifecycle {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--sp-3);
+  margin-top: calc(var(--sp-8) * 1.5);
+}
+@media (max-width: 980px) { .lifecycle { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .lifecycle { grid-template-columns: repeat(2, 1fr); } }
+.cycle-step {
+  background: var(--surface-page);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-sm);
+  padding: var(--sp-7);
+  position: relative;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.cycle-step:hover { transform: translateY(-3px); box-shadow: var(--shadow-4); }
+.cycle-step .n {
+  width: 26px; height: 26px;
+  border-radius: var(--r-xl);
+  background: var(--onroute); color: #fff;
+  font-size: var(--fs-sm); font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: var(--sp-4);
+}
+.cycle-step h4 { font-size: var(--fs-xl); font-weight: 700; margin-bottom: 3px; }
+.cycle-step p { font-size: var(--fs-md); color: var(--text-secondary); }
+
+/* ============================================================
+   PLATFORM SECTIONS
+   ============================================================ */
+.platform { border-top: 1px solid var(--border-subtle); }
+.platform-head { display: grid; grid-template-columns: auto 1fr; gap: clamp(16px, 3vw, 32px); align-items: start; margin-bottom: var(--sp-8); }
+.platform-num {
+  font-size: clamp(38px, 5vw, 56px);
+  font-weight: 800; letter-spacing: -0.04em;
+  color: var(--onroute);
+  line-height: 1;
+  opacity: 0.9;
+}
+.platform-head h2 {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800; letter-spacing: -0.03em;
+  margin-bottom: var(--sp-2);
+}
+.platform-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.platform-meta .chip {
+  font-size: var(--fs-xs); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 4px var(--sp-4); border-radius: var(--r-xl);
+  background: var(--onroute-soft);
+  color: var(--onroute);
+  border: 1px solid rgba(50, 58, 147, 0.18);
+}
+.platform .principle {
+  color: var(--text-secondary);
+  max-width: 62ch;
+  margin-bottom: calc(var(--sp-8) * 1.5);
+}
+.platform .principle strong { color: var(--text-primary); font-weight: 600; }
+
+/* User flow chips */
+.uflow-label {
+  font-size: var(--fs-xs); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--text-secondary); margin-bottom: var(--sp-4);
+}
+.uflow {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: calc(var(--sp-8) * 1.5);
+}
+.uflow .step {
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-xl);
+  padding: var(--sp-3) var(--sp-7);
+  font-size: var(--fs-md);
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.uflow .step:hover { border-color: rgba(98, 253, 21, 0.6); background: var(--surface-page); }
+.uflow .step b { display: block; font-size: var(--fs-xl); font-weight: 700; }
+.uflow .step span { color: var(--text-secondary); font-size: var(--fs-sm); }
+.uflow .arrow { color: rgba(38,38,38,0.3); font-weight: 700; }
+
+/* Screens frame */
+.screens {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: linear-gradient(135deg, var(--onroute) 0%, var(--onroute-deep) 100%);
+  padding: clamp(14px, 2.4vw, 28px);
+  box-shadow: var(--shadow-2);
+}
+.screens + .screens { margin-top: var(--sp-5); }
+.screens img {
+  width: 100%; height: auto;
+  border-radius: var(--r-xs);
+  box-shadow: var(--shadow-3);
+}
+.screens-caption {
+  font-size: var(--fs-md);
+  color: var(--text-secondary);
+  margin-top: var(--sp-4);
+  display: flex; align-items: center; gap: var(--sp-2);
+}
+.screens-caption::before {
+  content: ''; width: 14px; height: 1.5px;
+  background: var(--onroute); display: inline-block;
+}
+
+/* ============================================================
+   DECISIONS
+   ============================================================ */
+.decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+@media (max-width: 820px) { .decision-grid { grid-template-columns: 1fr; } }
+.decision {
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  padding: clamp(20px, 3vw, 30px);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.decision:hover { transform: translateY(-3px); box-shadow: var(--shadow-4); border-color: rgba(98, 253, 21, 0.55); }
+.decision .d-num {
+  font-size: var(--fs-xs); font-weight: 800;
+  color: #171717;
+  background: var(--accent);
+  width: 24px; height: 24px; border-radius: var(--r-xs);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: var(--sp-5);
+}
+.decision h4 { font-size: var(--fs-4xl); font-weight: 700; margin-bottom: var(--sp-3); }
+.decision p { font-size: var(--fs-2xl); color: var(--text-secondary); }
+
+/* ============================================================
+   OUTCOME DARK SECTION
+   ============================================================ */
+.outcome-dark {
+  background: var(--surface-base);
+  color: var(--text-inverse);
+  border-radius: clamp(18px, 3vw, 32px);
+  margin: 0 clamp(12px, 2vw, 24px);
+  position: relative; overflow: hidden;
+}
+.outcome-dark::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(600px 300px at 85% 10%, rgba(98, 253, 21, 0.11), transparent),
+    radial-gradient(420px 260px at 8% 90%, rgba(50, 58, 147, 0.4), transparent);
+  pointer-events: none;
+}
+.outcome-inner { position: relative; padding: clamp(56px, 9vh, 96px) 0; }
+.outcome-inner .kicker { color: var(--accent); }
+.outcome-inner .kicker::before { box-shadow: none; }
+.outcome-inner h2 { color: var(--text-inverse); }
+.outcome-inner .lede { color: rgba(255,255,255,0.68); max-width: 58ch; margin-bottom: calc(var(--sp-8) * 2); }
+.outcome-inner .lede strong { color: var(--accent); font-weight: 700; }
+.outcome-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); }
+@media (max-width: 820px) { .outcome-stats { grid-template-columns: repeat(2, 1fr); } }
+.o-stat {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-md);
+  padding: clamp(18px, 2.6vw, 28px);
+  transition: background var(--dur-normal) var(--ease), transform var(--dur-normal) var(--ease), border-color var(--dur-normal) var(--ease);
+}
+.o-stat:hover { background: rgba(255,255,255,0.085); transform: translateY(-3px); border-color: rgba(98, 253, 21, 0.4); }
+.o-stat .num {
+  font-size: clamp(32px, 4.4vw, 48px);
+  font-weight: 800; letter-spacing: -0.03em; line-height: 1;
+  color: var(--accent);
+  margin-bottom: var(--sp-3);
+}
+.o-stat p { font-size: var(--fs-xl); color: rgba(255,255,255,0.62); }
+
+/* ============================================================
+   LEARNINGS
+   ============================================================ */
+.learn-quote {
+  font-size: clamp(20px, 2.8vw, 28px);
+  font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.3; max-width: 30ch;
+  margin: var(--sp-8) 0 calc(var(--sp-8) * 1.5);
+}
+.learn-quote .hl {
+  background-image: linear-gradient(transparent 62%, var(--accent-dim) 62%, var(--accent-dim) 94%, transparent 94%);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   NEXT / CTA
+   ============================================================ */
+.next-case {
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+.next-case .kicker { display: inline-block; }
+.next-case h2 {
+  font-size: clamp(26px, 4.2vw, 44px);
+  font-weight: 800; letter-spacing: -0.035em;
+  margin-bottom: calc(var(--sp-8) * 1.5);
+}
+.cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: var(--sp-4); }
+.btn {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  min-height: 48px; padding: var(--sp-4) calc(var(--sp-8) + 8px);
+  border-radius: var(--r-xl);
+  font-family: var(--font-primary);
+  font-size: var(--fs-2xl); font-weight: 600;
+  cursor: pointer; border: none;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.btn-primary { background: var(--surface-base); color: var(--text-inverse); box-shadow: var(--shadow-1); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.btn-ghost { background: transparent; color: var(--text-primary); border: 1.5px solid rgba(38,38,38,0.18); }
+.btn-ghost:hover { background: var(--surface-muted); border-color: rgba(38,38,38,0.34); }
+.btn svg { transition: transform var(--dur-fast) var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+
+/* FOOTER */
+.footer { border-top: 1px solid var(--border-subtle); padding: var(--sp-8) 0 calc(var(--sp-8) * 2); }
+.footer-inner {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: var(--sp-7);
+  font-size: var(--fs-md); color: var(--text-secondary);
+}
+.footer-links { display: flex; gap: var(--sp-2); list-style: none; }
+.footer-links a {
+  padding: var(--sp-2) var(--sp-4); border-radius: var(--r-xl);
+  min-height: 44px; display: inline-flex; align-items: center;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.footer-links a:hover { background: var(--surface-muted); color: var(--text-primary); }
+
+/* MOTION */
+.reveal { opacity: 0; transform: translateY(18px); animation: reveal var(--dur-8) var(--ease) forwards; }
+.reveal.d1 { animation-delay: 60ms; }
+.reveal.d2 { animation-delay: 140ms; }
+.reveal.d3 { animation-delay: 220ms; }
+@keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+.scroll-reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-7) var(--ease), transform var(--dur-7) var(--ease); }
+.scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal, .scroll-reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Jay, Product Designer, home"><span class="dot" aria-hidden="true"></span>jay.design</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="index.html#work" aria-current="page">Work</a></li>
+        <li><a href="ai.html">AI</a></li>
+        <li><a href="index.html#writing">Writing</a></li>
+        <li><a href="index.html#playground">Playground</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li class="nav-cta-li"><a href="index.html#contact" class="nav-cta">Let's talk</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="page-hero" aria-labelledby="case-title">
+  <div class="hero-decor" aria-hidden="true">
+    <div class="ruler ruler-top"></div>
+    <div class="ruler ruler-left"></div>
+    <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
+    <div class="phi-line"></div>
+  </div>
+  <div class="container">
+    <nav class="breadcrumb reveal" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span aria-hidden="true">/</span>
+      <a href="index.html#work">Work</a>
+      <span aria-hidden="true">/</span>
+      <span>Onroute</span>
+    </nav>
+    <div class="case-tags reveal d1">
+      <span class="tag brand">Onroute</span>
+      <span class="tag">4 Platforms</span>
+      <span class="tag">Systems Thinking</span>
+      <span class="tag">End-to-end</span>
+      <span class="tag">Lead Designer</span>
+    </div>
+    <h1 id="case-title" class="reveal d1">From 1,000 daily calls to a <span class="hl">self-serve ecosystem.</span></h1>
+    <p class="page-lede reveal d2">Designing 4 interconnected platforms for a roadside assistance company to eliminate call center dependency and automate the entire service lifecycle for every stakeholder in the chain.</p>
+    <div class="meta-grid reveal d3">
+      <div><div class="label">My role</div><div class="value">Lead designer, all 4 platforms</div></div>
+      <div><div class="label">Team</div><div class="value">1 PM, 1 lead, 8 engineers</div></div>
+      <div><div class="label">Timeline</div><div class="value">4 months</div></div>
+      <div><div class="label">Scope</div><div class="value">Research, UX, UI, design QA</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="container">
+    <div class="banner-frame scroll-reveal">
+      <img src="https://framerusercontent.com/images/rtpVX3E40h2zVLF7rNLVPDqx9Y.png?width=1680" alt="Onroute case study banner showing the four-platform ecosystem" loading="eager">
+    </div>
+  </div>
+</div>
+
+<!-- OUTCOME BAND -->
+<div class="stat-band" aria-label="Key outcomes">
+  <div class="container">
+    <div class="stat-grid">
+      <div class="stat-card scroll-reveal"><div class="num">&minus;42%</div><p>Inbound calls to the call center, mostly status checks eliminated by live tracking</p></div>
+      <div class="stat-card scroll-reveal"><div class="num">3&times;</div><p>Faster average job dispatch, from manual phone assignment to automated job cards</p></div>
+      <div class="stat-card scroll-reveal"><div class="num">&minus;67%</div><p>Customer complaints, transparency killed the anxiety that drove most of them</p></div>
+      <div class="stat-card scroll-reveal"><div class="num">89%</div><p>Mechanic job acceptance rate, driven by upfront clarity on payout, distance, and job type</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section aria-labelledby="problem-title" style="padding-top: 0;">
+  <div class="container">
+    <span class="kicker scroll-reveal">The problem</span>
+    <h2 class="section-title scroll-reveal" id="problem-title">Every flat tyre ended in a phone call. Then another. Then another.</h2>
+    <div class="prose scroll-reveal">
+      <p>The call center handled <strong>1,000+ calls a day</strong>, and most were not new emergencies. They were people re-calling to ask where their mechanic was. The call center had become the only interface the business had. Every customer question, every mechanic update, every garage query, all of it went through a phone line handled by roughly 40 agents.</p>
+    </div>
+    <div class="story scroll-reveal">
+      <div class="label">A typical evening</div>
+      <p>It's 9 PM. Priya's car won't start in a parking lot. She calls the helpline. An agent manually notes her address, calls three garages to find one available, calls back with an ETA, and updates a spreadsheet. Priya is left in the dark, calling again every 15 minutes. The garage gets a call saying "we're sending you a job" with no context. The mechanic gets a WhatsApp message with an address and a prayer.</p>
+    </div>
+    <div class="evidence scroll-reveal">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <p><strong>How I gathered evidence:</strong> structured conversations with the ops lead, PM, and the team members closest to the problem. I pushed each conversation for specific examples and numbers rather than opinions, so every insight on this page traces back to a real account, not an assumption.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GOAL + SYSTEM -->
+<section class="platform" aria-labelledby="system-title">
+  <div class="container">
+    <span class="kicker scroll-reveal">One goal, then system thinking first</span>
+    <h2 class="section-title scroll-reveal" id="system-title">4 users. 4 mental models. One connected system.</h2>
+    <div class="prose scroll-reveal">
+      <p>The goal: build a connected digital ecosystem so every stakeholder, customer, mechanic, garage owner, and ops team, can self-serve. <strong>Eliminate the call as the primary coordination mechanism.</strong></p>
+      <p>Before designing a single screen I mapped how information and actions had to flow between stakeholders. The system lives or dies on one principle: <strong>status is the single source of truth.</strong> Every platform reflects the same job state in real time.</p>
+      <p>Each user experiences the same urgency differently. A customer feels it emotionally, a mechanic feels it physically, a garage owner feels it as a business problem, and ops feels it as volume. So each platform got its own design principle, all pointed at the same goal: automate what the call center used to do manually.</p>
+    </div>
+    <div class="lifecycle" role="list" aria-label="End-to-end service lifecycle">
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">1</div><h4>Customer</h4><p>Requests service via app</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">2</div><h4>Ops Dashboard</h4><p>Receives & assigns job</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">3</div><h4>Garage Partner</h4><p>Accepts job, dispatches</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">4</div><h4>Mechanic</h4><p>Gets job, navigates, updates</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">5</div><h4>Customer</h4><p>Tracks live status</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">6</div><h4>Job Complete</h4><p>Rating & invoice auto-sent</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM 01 -->
+<section class="platform" aria-labelledby="p1-title">
+  <div class="container">
+    <div class="platform-head scroll-reveal">
+      <div class="platform-num" aria-hidden="true">01</div>
+      <div>
+        <h2 id="p1-title">Customer App: the face of the experience</h2>
+        <div class="platform-meta">
+          <span class="chip">Mobile</span><span class="chip">iOS & Android</span><span class="chip">Consumer-facing</span>
+        </div>
+      </div>
+    </div>
+    <p class="principle scroll-reveal">For the customer, the whole product is this app. They're stressed, car trouble is rarely a good moment. So the design principle here was <strong>radical simplicity under pressure.</strong> One big action on the home screen. No hunting for menus. Real-time feedback at every step so they never have to call anyone to ask "what's happening?"</p>
+    <div class="uflow-label scroll-reveal">Customer user flow</div>
+    <div class="uflow scroll-reveal" aria-label="Customer user flow">
+      <div class="step"><b>Open app</b><span>Home screen</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Request service</b><span>Type + location</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Confirm details</b><span>Review & submit</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>In progress</b><span>Status updates</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Track mechanic</b><span>Live map + ETA</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Complete</b><span>Rate + invoice</span></div>
+    </div>
+    <div class="screens scroll-reveal">
+      <img src="https://framerusercontent.com/images/BygXC9IfCYp31ZYms85TOWgYtM.png?width=1680" alt="Onroute customer app UI screens: home, service request, live tracking, and completion" loading="lazy">
+    </div>
+    <p class="screens-caption scroll-reveal">Customer app: request, track, and rate without a single phone call</p>
+  </div>
+</section>
+
+<!-- PLATFORM 02 -->
+<section class="platform" aria-labelledby="p2-title">
+  <div class="container">
+    <div class="platform-head scroll-reveal">
+      <div class="platform-num" aria-hidden="true">02</div>
+      <div>
+        <h2 id="p2-title">Ops Web Dashboard: the control room</h2>
+        <div class="platform-meta">
+          <span class="chip">Web app</span><span class="chip">Internal staff</span><span class="chip">High density</span>
+        </div>
+      </div>
+    </div>
+    <p class="principle scroll-reveal">Internal ops staff are the unsung heroes. They manage <strong>200+ active jobs simultaneously</strong>, handle escalations, and keep the SLA green. The design challenge was the opposite of the customer app: <strong>maximum information density without cognitive overload.</strong> Every second they spend hunting for data is a second a customer waits.</p>
+    <div class="uflow-label scroll-reveal">Ops staff user flow</div>
+    <div class="uflow scroll-reveal" aria-label="Ops staff user flow">
+      <div class="step"><b>Login</b><span>Shift start</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Overview</b><span>Active jobs, alerts</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>New job in</b><span>Auto or manual assign</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Escalation?</b><span>SLA breach flag</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Intervene</b><span>Reassign / contact</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Job closed</b><span>Auto-logged</span></div>
+    </div>
+    <div class="screens scroll-reveal">
+      <img src="https://framerusercontent.com/images/Ks9Ci7mnzgO6n9e5IjJxqOynoI.png?width=1680" alt="Onroute ops dashboard overview with live job table and alerts" loading="lazy">
+    </div>
+    <div class="screens scroll-reveal">
+      <img src="https://framerusercontent.com/images/Az4QA5Fouc6eyYWBuA2TszQuZKc.png?width=1680" alt="Onroute ops dashboard job assignment and escalation views" loading="lazy">
+    </div>
+    <div class="screens scroll-reveal">
+      <img src="https://framerusercontent.com/images/BZLIoyGRJR6JhnISdajGjxhJQ.png?width=1680" alt="Onroute ops dashboard detailed job management screens" loading="lazy">
+    </div>
+    <p class="screens-caption scroll-reveal">Ops console: 200+ live jobs, escalations, and SLA health in one view</p>
+  </div>
+</section>
+
+<!-- PLATFORM 03 -->
+<section class="platform" aria-labelledby="p3-title">
+  <div class="container">
+    <div class="platform-head scroll-reveal">
+      <div class="platform-num" aria-hidden="true">03</div>
+      <div>
+        <h2 id="p3-title">Garage Partner App: the operations hub</h2>
+        <div class="platform-meta">
+          <span class="chip">Mobile + Tablet</span><span class="chip">Partner-facing</span><span class="chip">Business management</span>
+        </div>
+      </div>
+    </div>
+    <p class="principle scroll-reveal">Garage partners had <strong>zero digital presence</strong> before this. They ran their entire business on phone calls and a whiteboard. The design goal: give them a lightweight but genuinely useful business dashboard covering job pipeline, mechanic dispatch, and earnings visibility, all in one place. Available on mobile with an optimised tablet view for the garage counter.</p>
+    <div class="uflow-label scroll-reveal">Garage partner user flow</div>
+    <div class="uflow scroll-reveal" aria-label="Garage partner user flow">
+      <div class="step"><b>Receive job</b><span>Push notification</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Accept / decline</b><span>Capacity check</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Assign mechanic</b><span>Available staff list</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Track dispatch</b><span>Live mechanic map</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Job complete</b><span>Auto earnings log</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>View reports</b><span>Daily / weekly</span></div>
+    </div>
+    <div class="screens scroll-reveal">
+      <img src="https://framerusercontent.com/images/arZWCz79c8hXyiCYwNteEU0pI1E.png?width=1400" alt="Onroute garage partner app screens: job pipeline, mechanic assignment, and earnings" loading="lazy">
+    </div>
+    <p class="screens-caption scroll-reveal">Garage partner app: pipeline, dispatch, and earnings replacing the whiteboard</p>
+  </div>
+</section>
+
+<!-- PLATFORM 04 -->
+<section class="platform" aria-labelledby="p4-title">
+  <div class="container">
+    <div class="platform-head scroll-reveal">
+      <div class="platform-num" aria-hidden="true">04</div>
+      <div>
+        <h2 id="p4-title">Mechanic App: built for the road</h2>
+        <div class="platform-meta">
+          <span class="chip">Mobile</span><span class="chip">Offline-first</span><span class="chip">Single-hand use</span><span class="chip">High-glare optimised</span>
+        </div>
+      </div>
+    </div>
+    <p class="principle scroll-reveal">Mechanics are the most overlooked user in this ecosystem. Before this app, they got a WhatsApp message with an address and figured out the rest. The design constraints were extreme: <strong>bright sunlight, one hand, possibly wearing gloves, often patchy signal.</strong> Every screen had to work at a glance. The app is offline-first: all job data caches locally and syncs when signal returns.</p>
+    <div class="uflow-label scroll-reveal">Mechanic user flow</div>
+    <div class="uflow scroll-reveal" aria-label="Mechanic user flow">
+      <div class="step"><b>Receive job</b><span>Push notification</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Accept / decline</b><span>Capacity check</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Navigate</b><span>Turn-by-turn GPS</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Arrived</b><span>Mark arrival tap</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Service done</b><span>Mark complete</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Earnings</b><span>Auto updated</span></div>
+    </div>
+    <div class="screens scroll-reveal">
+      <img src="https://framerusercontent.com/images/gJorEmomzPWoAzJtffOSmcgBLM.png?width=1680" alt="Onroute mechanic app screens: job card, navigation, status updates, and earnings" loading="lazy">
+    </div>
+    <p class="screens-caption scroll-reveal">Mechanic app: glanceable, glove-friendly, works with zero signal</p>
+  </div>
+</section>
+
+<!-- DECISIONS -->
+<section class="platform" aria-labelledby="decisions-title">
+  <div class="container">
+    <span class="kicker scroll-reveal">Design decisions</span>
+    <h2 class="section-title scroll-reveal" id="decisions-title">The choices that made the difference</h2>
+    <p class="prose scroll-reveal" style="color: var(--text-secondary); max-width: 62ch; margin-bottom: calc(var(--sp-8) * 1.5);">Designing four platforms simultaneously meant constant trade-offs. These four decisions shaped everything:</p>
+    <div class="decision-grid">
+      <div class="decision scroll-reveal">
+        <span class="d-num">1</span>
+        <h4>Status as the single source of truth</h4>
+        <p>All four platforms reflect the same job state, updated in real time. No platform shows stale data. This single architectural decision eliminated the most common source of customer calls: people ringing to ask "what's happening?"</p>
+      </div>
+      <div class="decision scroll-reveal">
+        <span class="d-num">2</span>
+        <h4>Role-based information density</h4>
+        <p>The customer sees three things: their mechanic, the ETA, the status. The ops team sees a full live table of 200+ jobs. Designing the right density for each role prevented overload on mobile and kept the ops dashboard genuinely actionable.</p>
+      </div>
+      <div class="decision scroll-reveal">
+        <span class="d-num">3</span>
+        <h4>Offline-first mechanic app</h4>
+        <p>Mechanics drive through areas with dead signal. The app caches the current job locally, address, customer contact, service type, so they can navigate and update status without connectivity. Everything syncs on reconnect.</p>
+      </div>
+      <div class="decision scroll-reveal">
+        <span class="d-num">4</span>
+        <h4>One shared design system, four platforms</h4>
+        <p>I built a lightweight shared token layer: colour, type scale, spacing, and core components that all four platforms inherit. It enforced consistency across wildly different form factors and cut design time significantly on later platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOME DARK -->
+<div class="outcome-dark">
+  <div class="outcome-inner">
+    <div class="container">
+      <span class="kicker scroll-reveal">Outcome, three months post-launch</span>
+      <h2 class="section-title scroll-reveal">When you can see what's happening, you don't need to call anyone.</h2>
+      <p class="lede scroll-reveal">The clearest measure of success was call center dependency. Status-related calls dropped by <strong>42%</strong>, because customers and mechanics could now see and act on information themselves instead of calling in. Every stakeholder gained the one thing they didn't have before: visibility.</p>
+      <div class="outcome-stats">
+        <div class="o-stat scroll-reveal"><div class="num">&minus;42%</div><p>Fewer inbound calls. The majority were status checks, eliminated by live tracking.</p></div>
+        <div class="o-stat scroll-reveal"><div class="num">3&times;</div><p>Faster average dispatch. Manual phone assignment became automated job card delivery.</p></div>
+        <div class="o-stat scroll-reveal"><div class="num">&minus;67%</div><p>Fewer customer complaints. Transparency killed the anxiety that drove most of them.</p></div>
+        <div class="o-stat scroll-reveal"><div class="num">89%</div><p>Mechanic job acceptance. Clarity on payout, distance, and job type drove confidence.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEARNINGS -->
+<section aria-labelledby="learn-title">
+  <div class="container">
+    <span class="kicker scroll-reveal">What I learned</span>
+    <h2 class="section-title scroll-reveal" id="learn-title">Design the system before designing the screens</h2>
+    <div class="prose scroll-reveal">
+      <p>The most important document I made on this project wasn't a wireframe. It was the ecosystem map showing how data had to flow between all four user types. Getting every stakeholder to agree on that map <strong>before I opened Figma</strong> saved weeks of rework.</p>
+      <p>I also learned how differently each user type experiences "urgency". For the customer, urgency is emotional, they're stranded and anxious. For the ops agent, it's operational, an SLA number turning red. For the mechanic, it's physical, they're in traffic. Designing for the same moment from four different vantage points is what systems thinking actually means in practice.</p>
+    </div>
+    <p class="learn-quote scroll-reveal">The best design decision I made was <span class="hl">choosing not to design</span> until I understood all four users equally well.</p>
+  </div>
+</section>
+
+<!-- NEXT -->
+<section class="next-case">
+  <div class="container">
+    <span class="kicker scroll-reveal">Keep going</span>
+    <h2 class="scroll-reveal">Want the full story behind the decisions?</h2>
+    <div class="cta-actions scroll-reveal">
+      <a href="index.html#contact" class="btn btn-primary">Let's talk
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="index.html#work" class="btn btn-ghost">More case studies</a>
+      <a href="ai.html" class="btn btn-ghost">How I design with AI</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Jay &middot; Designed & built by me, with AI as the intern</span>
+    <ul class="footer-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#writing">Writing</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">Dribbble</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const targets = document.querySelectorAll('.scroll-reveal');
+if (prefersReduced) {
+  targets.forEach(el => el.classList.add('visible'));
+} else {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(el => io.observe(el));
+}
+</script>
+
+</body>
+</html>
