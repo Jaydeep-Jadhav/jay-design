@@ -591,6 +591,13 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
   letter-spacing: -0.02em;
   margin-bottom: var(--sp-3);
 }
+.work-body h3 a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.work-body h3 a:hover { text-decoration: underline; }
 .work-body p {
   font-size: var(--fs-2xl);
   color: var(--text-secondary);
