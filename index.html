@@ -550,8 +550,38 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
   justify-content: center;
 }
 .work-visual.onroute { background: linear-gradient(135deg, #323A93 0%, #4a54c4 100%); }
-.work-visual.case2 { background: linear-gradient(135deg, #1a1a1a 0%, #3d3d3d 100%); }
-.work-visual.case3 { background: linear-gradient(135deg, #e8e6df 0%, #f5f4f0 100%); }
+.work-visual.case2 { background: linear-gradient(135deg, #EEF3E2 0%, #E3E9D3 100%); }
+.work-card--soon { cursor: default; }
+.work-card--soon .work-body h3 { color: var(--text-primary); }
+.work-card--soon .work-visual {
+  position: relative;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255,255,255,0.03) 0 14px,
+    transparent 14px 28px
+  );
+}
+.soon-badge {
+  position: absolute;
+  top: var(--sp-5); left: var(--sp-5);
+  z-index: 2;
+  font-size: var(--fs-xs); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 5px var(--sp-4);
+  border-radius: var(--r-xl);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff;
+}
+.work-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  transition: transform var(--dur-7) var(--ease);
+}
+.work-card:hover .work-thumb { transform: scale(1.025); }
 .work-visual .mock {
   width: 72%;
   background: #fff;
@@ -682,14 +712,8 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
 @media (max-width: 820px) { .ai-grid { grid-template-columns: 1fr; } }
 
 /* ============================================================
-   WRITING + PLAYGROUND
+   WRITING
    ============================================================ */
-.split-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(24px, 4vw, 56px);
-}
-@media (max-width: 820px) { .split-grid { grid-template-columns: 1fr; } }
 .list-item {
   display: flex;
   align-items: baseline;
@@ -702,38 +726,6 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
 .list-item:hover { padding-left: var(--sp-3); }
 .list-item .title { font-size: var(--fs-3xl); font-weight: 600; }
 .list-item .meta { font-size: var(--fs-md); color: var(--text-secondary); white-space: nowrap; }
-.play-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-4);
-}
-.play-tile {
-  aspect-ratio: 1.35;
-  border-radius: var(--r-sm);
-  background: var(--surface-muted);
-  border: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: flex-end;
-  padding: var(--sp-7);
-  font-size: var(--fs-md);
-  font-weight: 600;
-  color: var(--text-secondary);
-  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.play-tile::before {
-  content: '';
-  position: absolute;
-  top: var(--sp-7); left: var(--sp-7);
-  width: 30px; height: 30px;
-  border-radius: var(--r-xs);
-  background: rgba(38,38,38,0.08);
-  transition: transform var(--dur-6) var(--ease), border-radius var(--dur-6) var(--ease);
-}
-.play-tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-4); color: var(--text-primary); }
-.play-tile:hover::before { transform: rotate(45deg) scale(1.15); border-radius: var(--r-xl); background: var(--accent); }
 
 /* ============================================================
    ABOUT STRIP
@@ -744,12 +736,8 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
   border-bottom: 1px solid var(--border-subtle);
 }
 .about-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: clamp(32px, 5vw, 72px);
-  align-items: center;
+  max-width: 640px;
 }
-@media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; } }
 .about-grid h2 {
   font-size: clamp(24px, 3.2vw, 34px);
   font-weight: 800;
@@ -757,34 +745,7 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
   margin-bottom: var(--sp-7);
 }
 .about-grid p { color: var(--text-secondary); margin-bottom: var(--sp-5); max-width: 56ch; }
-.principles { list-style: none; display: grid; gap: var(--sp-4); }
-.principles li {
-  background: var(--surface-page);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--r-sm);
-  padding: var(--sp-7) var(--sp-8);
-  font-size: var(--fs-2xl);
-  font-weight: 500;
-  display: flex;
-  gap: var(--sp-4);
-  align-items: center;
-  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
-}
-.principles li:hover { transform: translateX(4px); box-shadow: var(--shadow-4); }
-.principles li:hover .n { background: var(--accent); color: #171717; }
-.principles .n {
-  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  width: 24px; height: 24px;
-  border-radius: var(--r-xl);
-  background: var(--surface-base);
-  color: var(--text-inverse);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
+.about-grid p:last-child { margin-bottom: 0; }
 
 /* ============================================================
    CONTACT / FOOTER
@@ -796,9 +757,8 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
   letter-spacing: -0.035em;
   line-height: 1.06;
   max-width: 18ch;
-  margin: 0 auto var(--sp-7);
+  margin: 0 auto calc(var(--sp-8) * 2);
 }
-.contact p { color: var(--text-secondary); max-width: 46ch; margin: 0 auto calc(var(--sp-8) * 2); }
 .contact-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: var(--sp-4); }
 .footer {
   border-top: 1px solid var(--border-subtle);
@@ -865,7 +825,6 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
         <li><a href="#work">Work</a></li>
         <li><a href="ai.html">AI</a></li>
         <li><a href="#writing">Writing</a></li>
-        <li><a href="playground.html">Playground</a></li>
         <li><a href="#about">About</a></li>
         <li class="nav-cta-li"><a href="#contact" class="nav-cta">Let's talk</a></li>
       </ul>
@@ -902,7 +861,7 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
     </div>
   </div>
   <div class="container">
-    <span class="hero-eyebrow reveal"><span class="pulse" aria-hidden="true"></span>Open to Senior Product Designer roles</span>
+    <span class="hero-eyebrow reveal"><span class="pulse" aria-hidden="true"></span>Open to Senior UX/UI Designer roles</span>
     <div class="selection reveal d1">
       <span class="sel-label">Hero / Frame 01</span>
       <h1 id="hero-title">I design products that <span class="hl">earn</span> their <span class="muted">next session.</span></h1>
@@ -922,7 +881,6 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
     <div class="hero-meta reveal d4">
       <div><div class="num">3.5+</div><div class="label">Years in product design</div></div>
       <div><div class="num">3</div><div class="label">End-to-end case studies</div></div>
-      <div><div class="num">0→1</div><div class="label">Research to shipped UI</div></div>
       <div><div class="num">AI-native</div><div class="label">Workflow, documented</div></div>
     </div>
   </div>
@@ -935,6 +893,7 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
       <div>
         <span class="kicker">Selected work</span>
         <h2 id="work-title">Case studies</h2>
+        <p style="color: var(--text-secondary); font-size: var(--fs-2xl); max-width: 62ch; margin-top: var(--sp-4);">Both projects design systems before screens, for very different kinds of pressure: coordinating people through a live emergency in Onroute, and replacing a process that already worked, badly, but worked, in Tableside.</p>
       </div>
       <a href="#work" class="section-link">All work
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -945,19 +904,14 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
       <!-- Case 1: Onroute -->
       <article class="work-card scroll-reveal">
         <div class="work-visual onroute" aria-hidden="true">
-          <div class="mock">
-            <div class="bar w40"></div>
-            <div class="bar w85"></div>
-            <div class="bar w60"></div>
-            <div class="chip-row"><div class="chip"></div><div class="chip"></div><div class="chip"></div></div>
-          </div>
+          <img class="work-thumb" src="assets/images/onroute-thumbnail.png" alt="" loading="lazy">
         </div>
         <div class="work-body">
           <div class="work-tags">
-            <span class="tag">4 Platforms</span><span class="tag">Systems Thinking</span><span class="tag">End-to-end</span>
+            <span class="tag">Systems Thinking</span><span class="tag">Cross-role Coordination</span><span class="tag">4 Platforms</span>
           </div>
-          <h3><a href="onroute.html">Onroute: From 1,000 daily calls to a self-serve ecosystem</a></h3>
-          <p>Designed 4 interconnected platforms for a roadside assistance company: customer app, mechanic app, garage dashboard, and ops console. The call center stopped being the product's only interface.</p>
+          <h3><a href="onroute.html">Onroute: no more roadside call center, just one shared status</a></h3>
+          <p>Customer app, mechanic app, garage dashboard, ops console, four very different relationships to the same emergency, one shared status between them. Built to replace a 40 person call center for a roadside assistance company.</p>
           <div class="work-outcome">
             <div><div class="num">&minus;42%</div><div class="label">Inbound calls</div></div>
             <div><div class="num">3&times;</div><div class="label">Faster dispatch</div></div>
@@ -966,47 +920,17 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
         </div>
       </article>
 
-      <!-- Case 2 placeholder -->
+      <!-- Case 2: Tableside -->
       <article class="work-card scroll-reveal">
         <div class="work-visual case2" aria-hidden="true">
-          <div class="mock">
-            <div class="bar w60"></div>
-            <div class="bar w85"></div>
-            <div class="chip-row"><div class="chip"></div><div class="chip"></div></div>
-          </div>
+          <img class="work-thumb" src="assets/images/tableside-thumbnail.png" alt="" loading="lazy">
         </div>
         <div class="work-body">
           <div class="work-tags">
-            <span class="tag">Product Strategy</span><span class="tag">Design System</span>
+            <span class="tag">Multi-role SaaS</span><span class="tag">QR-first</span><span class="tag">6 Platforms</span>
           </div>
-          <h3><a href="#">Case Study 2: Your headline outcome here</a></h3>
-          <p>One sentence on the problem, who it was for, and the measurable result. Lead with the outcome, not the process.</p>
-          <div class="work-outcome">
-            <div><div class="num">+XX%</div><div class="label">Key metric</div></div>
-            <div><div class="num">N</div><div class="label">Evidence point</div></div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case 3 placeholder -->
-      <article class="work-card scroll-reveal">
-        <div class="work-visual case3" aria-hidden="true">
-          <div class="mock">
-            <div class="bar w85"></div>
-            <div class="bar w40"></div>
-            <div class="bar w60"></div>
-          </div>
-        </div>
-        <div class="work-body">
-          <div class="work-tags">
-            <span class="tag">Usability Testing</span><span class="tag">Mobile</span>
-          </div>
-          <h3><a href="#">Case Study 3: Your headline outcome here</a></h3>
-          <p>Same pattern: problem, audience, result. Three strong cases beat six shallow ones.</p>
-          <div class="work-outcome">
-            <div><div class="num">+XX%</div><div class="label">Key metric</div></div>
-            <div><div class="num">N</div><div class="label">Evidence point</div></div>
-          </div>
+          <h3><a href="tableside.html">Tableside: one restaurant, six connected views</a></h3>
+          <p>Guest QR ordering, waiter app, kitchen display, cashier, manager floor map, HQ admin, six views onto one live order thread, replacing a paper process that already worked, badly, but worked, for a restaurant chain.</p>
         </div>
       </article>
     </div>
@@ -1052,61 +976,37 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
   </div>
 </div>
 
-<!-- WRITING + PLAYGROUND -->
-<section aria-label="Writing and playground">
-  <div class="container split-grid">
-    <div id="writing">
+<!-- WRITING -->
+<section aria-label="Writing">
+  <div class="container">
+    <div id="writing" style="max-width: 640px;">
       <div class="section-head scroll-reveal">
         <div>
           <span class="kicker">Writing</span>
           <h2 style="font-size: clamp(22px, 2.8vw, 30px);">Notes on design & judgment</h2>
         </div>
       </div>
-      <a href="#" class="list-item scroll-reveal">
-        <span class="title">Being a UI/UX designer in 2026</span>
-        <span class="meta">8 min read</span>
+      <a href="blog-ui-ux-2026.html" class="list-item scroll-reveal">
+        <span class="title">POV: You're a UI/UX Designer in 2026</span>
+        <span class="meta">3 min read</span>
       </a>
-      <a href="#" class="list-item scroll-reveal">
-        <span class="title">JTBD stories that survive stakeholder review</span>
-        <span class="meta">6 min read</span>
-      </a>
-      <a href="#" class="list-item scroll-reveal">
-        <span class="title">What a 7-day research sprint actually produces</span>
+      <a href="blog-wrong-product.html" class="list-item scroll-reveal">
+        <span class="title">Stop Building the Wrong Product, Well.</span>
         <span class="meta">5 min read</span>
       </a>
-    </div>
-    <div id="playground">
-      <div class="section-head scroll-reveal">
-        <div>
-          <span class="kicker">Playground</span>
-          <h2 style="font-size: clamp(22px, 2.8vw, 30px);">Experiments & side quests</h2>
-        </div>
-      </div>
-      <div class="play-grid">
-        <a href="playground.html" class="play-tile scroll-reveal">SVG logo studies</a>
-        <a href="playground.html" class="play-tile scroll-reveal">Micro-interactions</a>
-        <a href="playground.html" class="play-tile scroll-reveal">Type explorations</a>
-        <a href="playground.html" class="play-tile scroll-reveal">AI prototypes</a>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT STRIP -->
 <section class="about-strip" id="about">
-  <div class="container about-grid">
-    <div class="scroll-reveal">
+  <div class="container">
+    <div class="about-grid scroll-reveal">
       <span class="kicker" style="font-size: var(--fs-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-secondary); display: block; margin-bottom: var(--sp-2);">About</span>
       <h2>Designer from Pune. Obsessed with why people do what they do.</h2>
       <p>I started in visual design and grew into the full product loop: research, strategy, interface, and iteration. I care about products that respect people's time and attention.</p>
-      <p>Currently targeting Senior Product Designer roles at product startups where design owns outcomes, not just screens.</p>
+      <p>What actually pulls me into this work is the problem, not the pixels. Give me something broken or confusing and I want to know why before I touch a screen. And when something I've built genuinely changes how someone gets through their day, that's the part of the job I'd do for free.</p>
     </div>
-    <ul class="principles scroll-reveal" aria-label="Design principles">
-      <li><span class="n">1</span>Evidence before opinion</li>
-      <li><span class="n">2</span>Outcomes over deliverables</li>
-      <li><span class="n">3</span>Craft is a trust signal</li>
-      <li><span class="n">4</span>AI amplifies judgment, never replaces it</li>
-    </ul>
   </div>
 </section>
 
@@ -1114,12 +1014,11 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
 <section class="contact" id="contact">
   <div class="container">
     <h2 class="scroll-reveal">Building something worth using? <span class="hl">Let's talk.</span></h2>
-    <p class="scroll-reveal">I reply within a day. Best for Senior Product Designer roles, freelance product work, or a chat about design in the AI era.</p>
     <div class="contact-actions scroll-reveal">
-      <a href="mailto:hello@example.com" class="btn btn-primary">hello@jay.design
+      <a href="mailto:jaydeepsjadhav07@gmail.com" class="btn btn-primary">jaydeepsjadhav07@gmail.com
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="#" class="btn btn-ghost">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/jaydeep-jadhav-9a366818b" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <a href="#" class="btn btn-ghost" download>Resume (PDF)</a>
     </div>
   </div>
@@ -1129,12 +1028,11 @@ section { padding: clamp(56px, 9vh, 104px) 0; }
 
 <footer class="footer">
   <div class="container footer-inner">
-    <span>© 2026 Jay · Designed & built by me, with AI as the intern</span>
+    <span>© 2026 Jaydeep Jadhav. Designed and crafted with intention.</span>
     <ul class="footer-links">
       <li><a href="#work">Work</a></li>
       <li><a href="#writing">Writing</a></li>
-      <li><a href="#">LinkedIn</a></li>
-      <li><a href="#">Dribbble</a></li>
+      <li><a href="https://www.linkedin.com/in/jaydeep-jadhav-9a366818b" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
     </ul>
   </div>
 </footer>
