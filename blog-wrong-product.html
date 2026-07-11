@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stop Building the Wrong Product, Well. | Jay, Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   OPEN DESIGN TOKEN SYSTEM
+   ============================================================ */
+:root {
+  --font-primary: 'Albert Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --fs-xs: 10px; --fs-sm: 12.5px; --fs-md: 13px; --fs-lg: 13.33px;
+  --fs-xl: 14px; --fs-2xl: 15px; --fs-3xl: 16px; --fs-4xl: 17px;
+  --lh-base: 1.55;
+
+  --text-primary: #262626;
+  --text-secondary: #595959;
+  --text-inverse: #ffffff;
+  --surface-base: #000000;
+  --surface-muted: #fafafa;
+  --surface-page: #ffffff;
+  --border-subtle: rgba(38, 38, 38, 0.09);
+
+  --accent: #62FD15;
+  --accent-dim: rgba(98, 253, 21, 0.18);
+  --accent-soft: rgba(98, 253, 21, 0.09);
+
+  --sp-1: 7px; --sp-2: 8px; --sp-3: 10px; --sp-4: 12px;
+  --sp-5: 14px; --sp-6: 15px; --sp-7: 16px; --sp-8: 18px;
+
+  --r-xs: 6px; --r-sm: 13px; --r-md: 18px; --r-lg: 50px; --r-xl: 999px;
+
+  --shadow-1: rgba(21, 20, 15, 0.45) 0px 8px 20px -8px, rgba(21, 20, 15, 0.06) 0px 0px 0px 1px inset;
+  --shadow-2: rgba(38, 38, 38, 0.42) 0px 14px 26px -16px;
+  --shadow-3: rgba(0, 0, 0, 0.72) 0px 28px 60px -42px;
+  --shadow-4: rgba(0, 0, 0, 0.4) 0px 4px 12px -4px;
+
+  --dur-instant: 140ms; --dur-fast: 160ms; --dur-normal: 180ms;
+  --dur-slow: 200ms; --dur-slower: 260ms; --dur-6: 300ms;
+  --dur-7: 420ms; --dur-8: 900ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-primary);
+  font-size: var(--fs-3xl); font-weight: 400;
+  line-height: var(--lh-base);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+}
+::selection { background: var(--surface-base); color: var(--text-inverse); }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--surface-base); outline-offset: 3px; border-radius: var(--r-xs); }
+img { max-width: 100%; display: block; }
+
+.skip-link {
+  position: absolute; left: var(--sp-7); top: -60px;
+  background: var(--surface-base); color: var(--text-inverse);
+  padding: var(--sp-3) var(--sp-8); border-radius: var(--r-xl);
+  z-index: 100; font-size: var(--fs-xl);
+  transition: top var(--dur-fast) var(--ease);
+}
+.skip-link:focus { top: var(--sp-7); }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-logo { font-weight: 800; font-size: var(--fs-4xl); letter-spacing: -0.02em; display: flex; align-items: center; gap: var(--sp-3); }
+.nav-logo .dot { width: 9px; height: 9px; background: var(--accent); border-radius: var(--r-xl); display: inline-block; box-shadow: 0 0 0 1.5px rgba(38,38,38,0.85); }
+.nav-links { display: flex; align-items: center; gap: var(--sp-2); list-style: none; }
+.nav-links a {
+  font-size: var(--fs-xl); font-weight: 500; color: var(--text-secondary);
+  padding: var(--sp-3) var(--sp-5); border-radius: var(--r-xl);
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  min-height: 44px; display: inline-flex; align-items: center;
+}
+.nav-links a:hover { color: var(--text-primary); background: var(--surface-muted); }
+.nav-links a[aria-current="page"] { color: var(--text-primary); font-weight: 600; background: var(--surface-muted); }
+.nav-cta {
+  background: var(--surface-base) !important; color: var(--text-inverse) !important;
+  font-weight: 600 !important; padding: var(--sp-3) var(--sp-8) !important;
+  box-shadow: var(--shadow-4);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease) !important;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: var(--shadow-2); background: var(--surface-base) !important; }
+.nav-toggle {
+  display: none;
+  align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  color: var(--text-primary);
+}
+.nav-toggle svg .line-top, .nav-toggle svg .line-bottom { transition: transform var(--dur-fast) var(--ease); transform-origin: center; }
+.nav-toggle[aria-expanded="true"] svg .line-top { transform: translateY(5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] svg .line-bottom { transform: translateY(-5px) rotate(-45deg); }
+.nav-toggle[aria-expanded="true"] svg .line-mid { opacity: 0; }
+@media (max-width: 720px) {
+  .nav-toggle { display: inline-flex; }
+  .nav-links {
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    background: var(--surface-page);
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-2);
+    padding: var(--sp-5) clamp(20px, 5vw, 48px) var(--sp-7);
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height var(--dur-slow) var(--ease), visibility var(--dur-slow);
+  }
+  .nav-links.open { max-height: 480px; visibility: visible; }
+  .nav-links li { width: 100%; }
+  .nav-links a { width: 100%; }
+  .nav-cta-li { margin-top: var(--sp-3); }
+}
+
+/* ============================================================
+   ARTICLE LAYOUT
+   ============================================================ */
+.article-container { max-width: 700px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+
+.article-hero {
+  padding: clamp(32px, 5vh, 56px) 0 0;
+}
+.breadcrumb {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  font-size: var(--fs-md); color: var(--text-secondary);
+  margin-bottom: calc(var(--sp-8) * 1.5);
+}
+.breadcrumb a { border-radius: var(--r-xs); transition: color var(--dur-fast) var(--ease); }
+.breadcrumb a:hover { color: var(--text-primary); }
+
+.article-meta-top {
+  display: flex; align-items: center; gap: var(--sp-3);
+  margin-bottom: var(--sp-7);
+}
+.article-meta-top .tag {
+  font-size: var(--fs-sm); font-weight: 600;
+  padding: 5px var(--sp-4); border-radius: var(--r-xl);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+.article-hero h1 {
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-bottom: var(--sp-8);
+}
+.article-hero h1 .hl {
+  background-image: linear-gradient(transparent 62%, var(--accent-dim) 62%, var(--accent-dim) 94%, transparent 94%);
+  border-radius: 2px;
+}
+.byline {
+  display: flex; align-items: center; gap: var(--sp-4);
+  padding-bottom: calc(var(--sp-8) * 1.5);
+  margin-bottom: calc(var(--sp-8) * 1.5);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.byline .avatar {
+  width: 40px; height: 40px; border-radius: var(--r-xl);
+  background: var(--surface-base); color: var(--text-inverse);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: var(--fs-2xl); flex-shrink: 0;
+}
+.byline .who { font-weight: 600; font-size: var(--fs-2xl); }
+.byline .when { color: var(--text-secondary); font-size: var(--fs-md); }
+
+.banner-frame {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-2);
+  margin-bottom: calc(var(--sp-8) * 2);
+}
+.banner-frame img { width: 100%; height: auto; }
+
+/* Article body typography, wider line-height, larger type for long-form reading */
+.article-body {
+  font-size: clamp(17px, 1.9vw, 19px);
+  line-height: 1.75;
+  color: var(--text-primary);
+}
+.article-body p {
+  margin-bottom: calc(var(--sp-8) * 1.3);
+  color: var(--text-primary);
+}
+.article-body p.lede {
+  font-size: clamp(19px, 2.2vw, 22px);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.article-body h2 {
+  font-size: clamp(22px, 2.8vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: calc(var(--sp-8) * 2) 0 var(--sp-7);
+}
+
+.pull-quote {
+  font-size: clamp(24px, 3.4vw, 34px);
+  font-weight: 800; letter-spacing: -0.02em;
+  line-height: 1.28;
+  margin: calc(var(--sp-8) * 2) 0;
+  padding-left: clamp(20px, 3vw, 28px);
+  border-left: 3px solid var(--accent);
+}
+.pull-quote .hl {
+  background-image: linear-gradient(transparent 62%, var(--accent-dim) 62%, var(--accent-dim) 94%, transparent 94%);
+  border-radius: 2px;
+}
+
+.article-body strong { font-weight: 700; color: var(--text-primary); }
+
+.article-divider {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: calc(var(--sp-8) * 2.5) 0;
+}
+
+/* Closing CTA */
+.article-close { text-align: center; padding: clamp(48px, 8vh, 88px) 0 clamp(56px, 9vh, 100px); }
+.article-close h2 {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1.1;
+  max-width: 20ch; margin: 0 auto var(--sp-7);
+}
+.article-close p { color: var(--text-secondary); max-width: 46ch; margin: 0 auto calc(var(--sp-8) * 1.5); }
+.cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: var(--sp-4); }
+.btn {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  min-height: 48px; padding: var(--sp-4) calc(var(--sp-8) + 8px);
+  border-radius: var(--r-xl);
+  font-family: var(--font-primary);
+  font-size: var(--fs-2xl); font-weight: 600;
+  cursor: pointer; border: none;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.btn-primary { background: var(--surface-base); color: var(--text-inverse); box-shadow: var(--shadow-1); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.btn-ghost { background: transparent; color: var(--text-primary); border: 1.5px solid rgba(38,38,38,0.18); }
+.btn-ghost:hover { background: var(--surface-muted); border-color: rgba(38,38,38,0.34); }
+.btn svg { transition: transform var(--dur-fast) var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+
+/* FOOTER */
+.footer { border-top: 1px solid var(--border-subtle); padding: var(--sp-8) 0 calc(var(--sp-8) * 2); }
+.footer-inner {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: var(--sp-7);
+  font-size: var(--fs-md); color: var(--text-secondary);
+}
+.footer-links { display: flex; gap: var(--sp-2); list-style: none; }
+.footer-links a {
+  padding: var(--sp-2) var(--sp-4); border-radius: var(--r-xl);
+  min-height: 44px; display: inline-flex; align-items: center;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.footer-links a:hover { background: var(--surface-muted); color: var(--text-primary); }
+
+/* MOTION */
+.reveal { opacity: 0; transform: translateY(18px); animation: reveal var(--dur-8) var(--ease) forwards; }
+.reveal.d1 { animation-delay: 60ms; }
+.reveal.d2 { animation-delay: 140ms; }
+@keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+.scroll-reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-7) var(--ease), transform var(--dur-7) var(--ease); }
+.scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal, .scroll-reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Jay, Product Designer, home"><span class="dot" aria-hidden="true"></span>jay.design</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="ai.html">AI</a></li>
+        <li><a href="index.html#writing" aria-current="page">Writing</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li class="nav-cta-li"><a href="index.html#contact" class="nav-cta">Let's talk</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line class="line-top" x1="0" y1="1" x2="18" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line class="line-mid" x1="0" y1="7" x2="18" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line class="line-bottom" x1="0" y1="13" x2="18" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<article>
+  <div class="article-hero container article-container">
+    <nav class="breadcrumb reveal" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span aria-hidden="true">/</span>
+      <a href="index.html#writing">Writing</a>
+      <span aria-hidden="true">/</span>
+      <span>Stop Building the Wrong Product, Well.</span>
+    </nav>
+    <div class="article-meta-top reveal d1">
+      <span class="tag">Blog</span>
+      <span class="tag">Product Strategy</span>
+      <span class="tag">July 2026</span>
+    </div>
+    <h1 class="reveal d1">Stop Building the <span class="hl">Wrong Product</span>, Well.</h1>
+    <div class="byline reveal d2">
+      <div class="avatar" aria-hidden="true">J</div>
+      <div>
+        <div class="who">Jay Jadhav</div>
+        <div class="when">July 2026 &middot; 5 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container article-container">
+    <div class="banner-frame scroll-reveal">
+      <img src="assets/images/blog/wrong-product-banner.webp" alt="Stop Building the Wrong Product, Well, blog banner" loading="eager">
+    </div>
+
+    <div class="article-body">
+      <p class="lede scroll-reveal">It always starts the same way. A whiteboard covered in ideas, a Figma file called "Version 1," a Notion doc stuffed with features, and a team that's already convinced they've found the next big thing.</p>
+
+      <p class="scroll-reveal">Then weeks turn into months. The interface gets cleaner, the animations get smoother, the codebase gets more scalable, the onboarding gets more polished. Every metric you can point to says things are improving. Except the one that matters: nobody actually needs the product.</p>
+
+      <h2 class="scroll-reveal">The Most Dangerous Form of Progress</h2>
+
+      <p class="scroll-reveal">Picture a bridge built by world-class engineers, with flawless architecture, premium materials, and a construction crew that finishes ahead of schedule. Impressive, until you notice it connects two places nobody wants to travel between.</p>
+
+      <p class="scroll-reveal">No one would call that bridge a success just because it was well built. Yet product teams do this constantly. They celebrate faster sprints, pixel-perfect interfaces, and flawless releases while dodging the one question that actually matters: are we solving a problem people care about?</p>
+
+      <p class="pull-quote scroll-reveal">Beauty is easy to measure. <span class="hl">Meaning isn't.</span></p>
+
+      <h2 class="scroll-reveal">The Productivity Trap</h2>
+
+      <p class="scroll-reveal">Modern product teams move fast. AI writes the code, design systems assemble the UI, templates speed up research, and no-code tools can get a product live in weeks.</p>
+
+      <p class="scroll-reveal">The irony is that we've gotten so good at building things that we've stopped asking whether we should build them. We polish execution before we've validated direction, which is a bit like sprinting without checking if you're even facing the right way. The faster you run, the farther you end up from where you needed to be.</p>
+
+      <h2 class="scroll-reveal">Falling in Love with the Solution</h2>
+
+      <p class="scroll-reveal">Almost every founder knows this feeling. An idea shows up, it feels brilliant, and within minutes your brain is already sketching logos, pricing pages, launch videos, and imaginary future users.</p>
+
+      <p class="scroll-reveal">What it skips entirely is the hardest question: does this problem actually deserve space in someone's life? Instead of testing the problem, we test our own excitement. Every compliment feels like proof, and every skeptic gets waved off as "not the target audience."</p>
+
+      <p class="scroll-reveal">That's how a product becomes personal, and personal is dangerous. Once your identity is tangled up with an idea, criticism stops sounding like feedback and starts sounding like an attack, so you defend instead of learn.</p>
+
+      <h2 class="scroll-reveal">Users Don't Care About Features</h2>
+
+      <p class="scroll-reveal">Nobody wakes up excited about another dashboard, dreams about a better navigation bar, or brags to friends about your onboarding flow.</p>
+
+      <p class="scroll-reveal">People don't buy products, they hire solutions to problems. Someone buying a drill doesn't actually want a drill, they want a hole in the wall, or really, they want the picture hanging straight above the couch. The drill is just the tool that gets them there, and your product is no different.</p>
+
+      <p class="scroll-reveal">Users don't care how cleverly you built it. They care whether it makes their life less annoying.</p>
+
+      <h2 class="scroll-reveal">Perfection Is Often Expensive Procrastination</h2>
+
+      <p class="scroll-reveal">Plenty of teams delay launch in the name of perfection. "We need dark mode." "We need AI." "We need one more redesign."</p>
+
+      <p class="scroll-reveal">Sometimes those additions genuinely matter. More often, they're an excuse to avoid the scarier thing: putting the product in front of real users and finding out your assumptions were wrong. Polishing the interface feels productive. Talking to customers feels exposing. So a lot of teams keep choosing the comfortable work over the useful one.</p>
+
+      <h2 class="scroll-reveal">The Best Product Teams Obsess Over Questions</h2>
+
+      <p class="scroll-reveal">There's a real gap between average teams and great ones, and it usually shows up in the questions they ask.</p>
+
+      <p class="scroll-reveal">An average team asks how to build a feature; a great team asks whether the feature should exist at all. An average team asks how to boost engagement; a great one asks whether that engagement creates any value. An average team wants users spending more time in the product; a great one wants users solving their problem and getting on with their day.</p>
+
+      <p class="scroll-reveal">The difference in wording is small. The difference in outcome is not.</p>
+
+      <h2 class="scroll-reveal">Build Evidence Before You Build Software</h2>
+
+      <p class="scroll-reveal">Before you write thousands of lines of code, have dozens of real conversations. Before you design fifty screens, get to know five users properly. Before you add another feature, try removing one instead.</p>
+
+      <p class="scroll-reveal">Every product starts as a pile of assumptions, and the ones that succeed are the ones where someone bothered to swap those assumptions for evidence. That evidence rarely shows up in a brainstorm. It comes from actually listening to people, watching how they behave, and being wrong more times than feels comfortable.</p>
+
+      <h2 class="scroll-reveal">The Hardest Pivot Isn't Technical</h2>
+
+      <p class="scroll-reveal">Swapping your tech stack is easy. Redesigning the product is manageable. Changing your pricing is doable. Changing your ego is where things get hard.</p>
+
+      <p class="pull-quote scroll-reveal">Most products that fail to pivot don't fail because they couldn't. <span class="hl">They fail because they wouldn't.</span></p>
+
+      <h2 class="scroll-reveal">The Companies We Admire Didn't Win Because They Built Faster</h2>
+
+      <p class="scroll-reveal">They won because they understood people better than everyone else trying to solve the same problem. Technology reinvents itself every year; human behavior barely budges.</p>
+
+      <p class="scroll-reveal">The companies that last aren't the ones that ship the most software, they're the ones that build real understanding of the people using it. Their roadmaps tend to start with a question, not an assumption, and their features tend to start with empathy rather than a competitor's changelog.</p>
+
+      <h2 class="scroll-reveal">The Real Job of a Product Builder</h2>
+
+      <p class="scroll-reveal">You're not actually paid to design screens, write code, or ship features. Those are just tools you use to do the real job, which is simpler than it sounds: find a problem worth solving, understand it better than anyone else, and build the smallest thing that genuinely helps.</p>
+
+      <p class="scroll-reveal">Everything past that is decoration.</p>
+
+      <h2 class="scroll-reveal">Before You Open Figma Tomorrow</h2>
+
+      <p class="scroll-reveal">So before the next wireframe, the next sprint, or the next feature request, sit with one uncomfortable question: if this product disappeared tomorrow, who would actually miss it?</p>
+
+      <p class="scroll-reveal">If the answer doesn't come to you immediately, the fix isn't to build it better. It's to build something that matters.</p>
+    </div>
+
+    <hr class="article-divider">
+  </div>
+
+  <div class="article-close">
+    <div class="container">
+      <h2 class="scroll-reveal">Got thoughts on this?</h2>
+      <p class="scroll-reveal">I'd genuinely like to hear where you disagree. Or if you're building something and want a second opinion on it.</p>
+      <div class="cta-actions scroll-reveal">
+        <a href="index.html#contact" class="btn btn-primary">Get in touch
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="index.html#writing" class="btn btn-ghost">More writing</a>
+      </div>
+    </div>
+  </div>
+</article>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>© 2026 Jaydeep Jadhav. Designed and crafted with intention.</span>
+    <ul class="footer-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#writing">Writing</a></li>
+      <li><a href="https://www.linkedin.com/in/jaydeep-jadhav-9a366818b" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const targets = document.querySelectorAll('.scroll-reveal');
+if (prefersReduced) {
+  targets.forEach(el => el.classList.add('visible'));
+} else {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(el => io.observe(el));
+}
+
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+</script>
+
+</body>
+</html>
