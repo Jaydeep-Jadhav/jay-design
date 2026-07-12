@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tableside Case Study | Jay, Product Designer</title>
+<title>Onroute Case Study | Jay, Product Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -31,9 +31,9 @@
   --accent-soft: rgba(98, 253, 21, 0.09);
 
   /* Case brand: Onroute indigo */
-  --case-brand: #C1502E;
-  --case-brand-deep: #96351B;
-  --case-brand-soft: rgba(193, 80, 46, 0.09);
+  --onroute: #323A93;
+  --onroute-deep: #262C73;
+  --onroute-soft: rgba(50, 58, 147, 0.08);
 
   --sp-1: 7px; --sp-2: 8px; --sp-3: 10px; --sp-4: 12px;
   --sp-5: 14px; --sp-6: 15px; --sp-7: 16px; --sp-8: 18px;
@@ -156,7 +156,7 @@ img { max-width: 100%; display: block; }
 .page-hero::before {
   content: ''; position: absolute; top: -220px; right: -160px;
   width: 560px; height: 560px;
-  background: radial-gradient(closest-side, var(--case-brand-soft), transparent);
+  background: radial-gradient(closest-side, var(--onroute-soft), transparent);
   border-radius: 50%; pointer-events: none;
 }
 .hero-decor { position: absolute; inset: 0; pointer-events: none; }
@@ -210,7 +210,7 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
 }
-.tag.brand { background: var(--case-brand); border-color: var(--case-brand); color: #fff; }
+.tag.brand { background: var(--onroute); border-color: var(--onroute); color: #fff; }
 
 .page-hero h1 {
   font-size: clamp(32px, 5.2vw, 58px);
@@ -242,19 +242,6 @@ img { max-width: 100%; display: block; }
   color: var(--text-secondary); margin-bottom: 4px;
 }
 .meta-grid .value { font-size: var(--fs-2xl); font-weight: 600; }
-
-/* ============================================================
-   BANNER
-   ============================================================ */
-.banner { padding: clamp(24px, 4vh, 48px) 0 0; }
-.banner-frame {
-  border-radius: var(--r-md);
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--case-brand) 0%, var(--case-brand-deep) 100%);
-  box-shadow: var(--shadow-2);
-  border: 1px solid var(--border-subtle);
-}
-.banner-frame img { width: 100%; height: auto; }
 
 /* ============================================================
    OUTCOME BAND (top)
@@ -308,7 +295,7 @@ h2.section-title {
 .story {
   background: var(--surface-muted);
   border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--case-brand);
+  border-left: 3px solid var(--onroute);
   border-radius: var(--r-md);
   padding: clamp(20px, 3vw, 30px);
   max-width: 720px;
@@ -358,7 +345,7 @@ h2.section-title {
 .cycle-step .n {
   width: 26px; height: 26px;
   border-radius: var(--r-xl);
-  background: var(--case-brand); color: #fff;
+  background: var(--onroute); color: #fff;
   font-size: var(--fs-sm); font-weight: 800;
   display: flex; align-items: center; justify-content: center;
   margin-bottom: var(--sp-4);
@@ -374,7 +361,7 @@ h2.section-title {
 .platform-num {
   font-size: clamp(38px, 5vw, 56px);
   font-weight: 800; letter-spacing: -0.04em;
-  color: var(--case-brand);
+  color: var(--onroute);
   line-height: 1;
   opacity: 0.9;
 }
@@ -388,8 +375,8 @@ h2.section-title {
   font-size: var(--fs-xs); font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.08em;
   padding: 4px var(--sp-4); border-radius: var(--r-xl);
-  background: var(--case-brand-soft);
-  color: var(--case-brand);
+  background: var(--onroute-soft);
+  color: var(--onroute);
   border: 1px solid rgba(50, 58, 147, 0.18);
 }
 .platform .principle {
@@ -446,7 +433,7 @@ h2.section-title {
 }
 .screens-caption::before {
   content: ''; width: 14px; height: 1.5px;
-  background: var(--case-brand); display: inline-block;
+  background: var(--onroute); display: inline-block;
 }
 
 /* ============================================================
@@ -594,14 +581,14 @@ h2.section-title {
 
 <header class="nav">
   <div class="container nav-inner">
-    <a href="./" class="nav-logo" aria-label="Jay, Product Designer, home"><span class="dot" aria-hidden="true"></span>jay.design</a>
+    <a href="/" class="nav-logo" aria-label="Jay, Product Designer, home"><span class="dot" aria-hidden="true"></span>jay.design</a>
     <nav aria-label="Primary">
       <ul class="nav-links" id="navLinks">
-        <li><a href="./#work" aria-current="page">Work</a></li>
-        <li><a href="ai.html">AI</a></li>
-        <li><a href="./#writing">Writing</a></li>
-        <li><a href="./#about">About</a></li>
-        <li class="nav-cta-li"><a href="./#contact" class="nav-cta">Let's talk</a></li>
+        <li><a href="/#work" aria-current="page">Work</a></li>
+        <li><a href="/ai/">AI</a></li>
+        <li><a href="/#writing">Writing</a></li>
+        <li><a href="/#about">About</a></li>
+        <li class="nav-cta-li"><a href="/#contact" class="nav-cta">Let's talk</a></li>
       </ul>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
@@ -626,268 +613,201 @@ h2.section-title {
   </div>
   <div class="container">
     <nav class="breadcrumb reveal" aria-label="Breadcrumb">
-      <a href="./">Home</a>
+      <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <a href="./#work">Work</a>
+      <a href="/#work">Work</a>
       <span aria-hidden="true">/</span>
-      <span>Tableside</span>
+      <span>Onroute</span>
     </nav>
     <div class="case-tags reveal d1">
-      <span class="tag brand">Tableside</span>
-      <span class="tag">Multi-role SaaS</span>
-      <span class="tag">QR-first</span>
-      <span class="tag">6 Platforms</span>
-      <span class="tag">Designer</span>
+      <span class="tag brand">Onroute</span>
+      <span class="tag">Systems Thinking</span>
+      <span class="tag">Cross-role Coordination</span>
+      <span class="tag">4 Platforms</span>
+      <span class="tag">Lead Designer</span>
     </div>
-    <h1 id="case-title" class="reveal d1">Turning a paper-and-shouting restaurant into a <span class="hl">connected dining OS.</span></h1>
-    <p class="page-lede reveal d2">This wasn't a blank canvas. There was already a process, carbon slips, a phone calculator for the GST, three people relaying one order by hand, badly, but it worked. Six different interfaces got built around that same live order: a phone screen for the guest with no install, a tablet for the kitchen, an admin view tracking 8 outlets.</p>
+    <h1 id="case-title" class="reveal d1">From 1,000 daily calls to a <span class="hl">self-serve ecosystem.</span></h1>
+    <p class="page-lede reveal d2">A customer panicking on the highway. A mechanic just doing the job. A garage owner tracking one ticket among fifty. An ops team watching all of it as volume, all four funneled through the same 40 person call center that never let any of them see the same picture. I designed each of the four experiences around how that person felt in the moment, for a roadside assistance company.</p>
     <div class="meta-grid reveal d3">
-      <div><div class="label">My role</div><div class="value">3 of 6 platforms, end to end</div></div>
-      <div><div class="label">Team</div><div class="value">1 PM, 1 lead, 2 designers, 8 engineers</div></div>
-      <div><div class="label">Timeline</div><div class="value">6 months</div></div>
+      <div><div class="label">My role</div><div class="value">Lead designer, all 4 platforms</div></div>
+      <div><div class="label">Team</div><div class="value">1 PM, 1 lead, 8 engineers</div></div>
+      <div><div class="label">Timeline</div><div class="value">4 months</div></div>
       <div><div class="label">Scope</div><div class="value">Research, UX, UI, design QA</div></div>
     </div>
   </div>
 </section>
 
-<!-- NDA NOTE (uses evidence style pattern from Onroute page) -->
-<section aria-label="Case study disclosure" style="padding-top: clamp(24px, 3vh, 40px); padding-bottom: 0;">
+<!-- OUTCOME BAND -->
+<div class="stat-band" aria-label="Key outcomes">
   <div class="container">
-    <div class="evidence scroll-reveal" style="max-width: 88ch;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <p><strong>A note on the name.</strong> Tableside is a fictional name. This case study is based on a real, shipped restaurant management platform, anonymized to respect an NDA. Screens have been rebuilt with placeholder branding and data; the flows, decisions, and constraints are real.</p>
-    </div>
-    <div class="evidence scroll-reveal" style="max-width: 88ch; margin-top: var(--sp-6);">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      <p><strong>A note on scope.</strong> I designed the guest ordering, waiter, and HQ admin experience end to end. The kitchen display, manager floor map, and cashier flows were designed independently by a second designer on the team. All six are shown here to represent the complete system.</p>
+    <div class="stat-grid">
+      <div class="stat-card scroll-reveal"><div class="num">&minus;42%</div><p>Inbound calls to the call center, mostly status checks eliminated by live tracking</p></div>
+      <div class="stat-card scroll-reveal"><div class="num">3&times;</div><p>Faster average job dispatch, from manual phone assignment to automated job cards</p></div>
+      <div class="stat-card scroll-reveal"><div class="num">&minus;67%</div><p>Customer complaints, transparency killed the anxiety that drove most of them</p></div>
+      <div class="stat-card scroll-reveal"><div class="num">89%</div><p>Mechanic job acceptance rate, driven by upfront clarity on payout, distance, and job type</p></div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- PROBLEM -->
-<section aria-labelledby="problem-title">
+<section aria-labelledby="problem-title" style="padding-top: 0;">
   <div class="container">
-    <span class="kicker scroll-reveal">The situation</span>
-    <h2 class="section-title scroll-reveal" id="problem-title">Three people handled one order. None of them had the same information.</h2>
+    <span class="kicker scroll-reveal">The problem</span>
+    <h2 class="section-title scroll-reveal" id="problem-title">Every flat tyre ended in a phone call. Then another. Then another.</h2>
     <div class="prose scroll-reveal">
-      <p>It starts with a customer raising their hand. The waiter comes over, writes the order on a carbon-copy slip, tears off one copy and walks it to the kitchen hatch. The chef reads it, starts cooking, maybe. The slip might be illegible. The table number might be wrong. The waiter has already moved on to three other tables.</p>
-      <p>Meanwhile, the cashier has no idea what Table 7 ordered until the waiter physically walks over and reads out the items. The cashier punches them in manually, calculates GST with a phone calculator, and prints a bill that might not match what was actually served.</p>
-      <p>The brief was deceptively simple: <strong>connect everyone in the restaurant to the same live order.</strong> The execution required designing 6 different interfaces, each calibrated for a completely different user, context, and device.</p>
+      <p>The call center handled <strong>1,000+ calls a day</strong>, and most were not new emergencies. They were people re-calling to ask where their mechanic was. The call center had become the only interface the business had. Every customer question, every mechanic update, every garage query, all of it went through a phone line handled by roughly 40 agents.</p>
+    </div>
+    <div class="story scroll-reveal">
+      <div class="label">A typical evening</div>
+      <p>It's 9 PM. Priya's car won't start in a parking lot. She calls the helpline. An agent manually notes her address, calls three garages to find one available, calls back with an ETA, and updates a spreadsheet. Priya is left in the dark, calling again every 15 minutes. The garage gets a call saying "we're sending you a job" with no context. The mechanic gets a WhatsApp message with an address and a prayer.</p>
     </div>
     <div class="evidence scroll-reveal">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <p><strong>How I gathered evidence:</strong> shadow shifts across three outlets, structured conversations with the PM, outlet managers, waiters, and kitchen staff, and hands-on time with the existing paper flow. Every observation on this page traces back to something I watched happen or a specific person I spoke with.</p>
+      <p><strong>How I gathered evidence:</strong> structured conversations with the ops lead, PM, and the team members closest to the problem. I pushed each conversation for specific examples and numbers rather than opinions, so every insight on this page traces back to a real account, not an assumption.</p>
     </div>
   </div>
 </section>
 
-<!-- SYSTEM OVERVIEW -->
+<!-- GOAL + SYSTEM -->
 <section class="platform" aria-labelledby="system-title">
   <div class="container">
-    <span class="kicker scroll-reveal">System overview</span>
-    <h2 class="section-title scroll-reveal" id="system-title">6 roles. 3 tiers. 1 live order thread.</h2>
+    <span class="kicker scroll-reveal">One goal, then system thinking first</span>
+    <h2 class="section-title scroll-reveal" id="system-title">4 users. 4 mental models. One connected system.</h2>
     <div class="prose scroll-reveal">
-      <p>Before designing a single screen I mapped how information had to flow between roles. The system lives or dies on one principle: <strong>every role sees the same live order, at their altitude.</strong> HQ sees the chain. The kitchen sees one ticket. Everything in between is calibrated to the person and the moment.</p>
-      <p>An internal Portal Admin role also exists in the product for outlet provisioning. It's excluded here to keep the case study focused on the six roles with the most design decisions worth showing.</p>
+      <p>The goal: build a connected digital ecosystem so every stakeholder, customer, mechanic, garage owner, and ops team, can self-serve. <strong>Eliminate the call as the primary coordination mechanism.</strong></p>
+      <p>Before designing a single screen I mapped how information and actions had to flow between stakeholders. The system lives or dies on one principle: <strong>status is the single source of truth.</strong> Every platform reflects the same job state in real time.</p>
+      <p>Each user experiences the same urgency differently. A customer feels it emotionally, a mechanic feels it physically, a garage owner feels it as a business problem, and ops feels it as volume. So each platform got its own design principle, all pointed at the same goal: automate what the call center used to do manually.</p>
     </div>
-    <div class="lifecycle" role="list" aria-label="System tiers and roles">
-      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">HQ</div><h4>HQ Admin</h4><p>Web · All outlets, menus, staff</p></div>
-      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">R</div><h4>Manager</h4><p>Web/Tablet · Tables, ops, staff</p></div>
-      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">R</div><h4>Cashier</h4><p>Web/Tablet · Billing, payments</p></div>
-      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">R</div><h4>Kitchen</h4><p>KDS tablet · Order queue</p></div>
-      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">F</div><h4>Waiter</h4><p>Mobile · Assigned tables</p></div>
-      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">F</div><h4>Guest</h4><p>QR → browser · Scan, order, pay</p></div>
+    <div class="lifecycle" role="list" aria-label="End-to-end service lifecycle">
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">1</div><h4>Customer</h4><p>Requests service via app</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">2</div><h4>Ops Dashboard</h4><p>Receives & assigns job</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">3</div><h4>Garage Partner</h4><p>Accepts job, dispatches</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">4</div><h4>Mechanic</h4><p>Gets job, navigates, updates</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">5</div><h4>Customer</h4><p>Tracks live status</p></div>
+      <div class="cycle-step scroll-reveal" role="listitem"><div class="n">6</div><h4>Job Complete</h4><p>Rating & invoice auto-sent</p></div>
     </div>
   </div>
 </section>
 
-<!-- PLATFORM 01 - Customer -->
+<!-- PLATFORM 01 -->
 <section class="platform" aria-labelledby="p1-title">
   <div class="container">
     <div class="platform-head scroll-reveal">
       <div class="platform-num" aria-hidden="true">01</div>
       <div>
-        <h2 id="p1-title">Customer: scan, order, eat. No app, no account, no friction.</h2>
+        <h2 id="p1-title">Customer App: the face of the experience</h2>
         <div class="platform-meta">
-          <span class="chip">Guest-facing</span><span class="chip">QR → mobile browser</span><span class="chip">No install</span>
+          <span class="chip">Mobile</span><span class="chip">iOS & Android</span><span class="chip">Consumer-facing</span>
         </div>
       </div>
     </div>
-    <p class="principle scroll-reveal">The customer experience had to be the most seamless of all. Guests didn't choose this software, they just want lunch. <strong>Zero friction meant zero installation:</strong> scan the QR on the table, and you're already in the menu. Table context pre-filled. Categories filterable. Cart always visible. The 60-second rule shaped every screen: from scan to placed order in under a minute. Takeaway gets the same flow but lands on a pickup code screen instead of a tracking view.</p>
+    <p class="principle scroll-reveal">For the customer, the whole product is this app. They're stressed, car trouble is rarely a good moment. So the design principle here was <strong>radical simplicity under pressure.</strong> One big action on the home screen. No hunting for menus. Real-time feedback at every step so they never have to call anyone to ask "what's happening?"</p>
     <div class="uflow-label scroll-reveal">Customer user flow</div>
     <div class="uflow scroll-reveal" aria-label="Customer user flow">
-      <div class="step"><b>Scan</b><span>Table auto-filled</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Browse</b><span>Filter by category</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Add items</b><span>Qty + notes</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Confirm</b><span>Live to kitchen</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Track & pay</b><span>Status + bill</span></div>
+      <div class="step"><b>Open app</b><span>Home screen</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Request service</b><span>Type + location</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Confirm details</b><span>Review & submit</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>In progress</b><span>Status updates</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Track mechanic</b><span>Live map + ETA</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Complete</b><span>Rate + invoice</span></div>
     </div>
     <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/customer-01-scan-menu.webp" alt="Tableside customer app: scan and menu screens" loading="lazy">
+      <img src="/assets/images/onroute/customer-app.webp" alt="Onroute customer app UI screens: home, service request, live tracking, and completion" loading="lazy">
     </div>
-    <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/customer-02-browse-detail.webp" alt="Tableside customer app: menu browse and item detail" loading="lazy">
-    </div>
-    <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/customer-03-cart-confirm.webp" alt="Tableside customer app: cart and confirm" loading="lazy">
-    </div>
-    <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/customer-04-tracking-pay.webp" alt="Tableside customer app: order tracking and pay" loading="lazy">
-    </div>
-    <p class="screens-caption scroll-reveal">Customer app: scan, order, track, and pay without ever installing anything</p>
+    <p class="screens-caption scroll-reveal">Customer app: request, track, and rate without a single phone call</p>
   </div>
 </section>
 
-<!-- PLATFORM 02 - HQ Admin -->
+<!-- PLATFORM 02 -->
 <section class="platform" aria-labelledby="p2-title">
   <div class="container">
     <div class="platform-head scroll-reveal">
       <div class="platform-num" aria-hidden="true">02</div>
       <div>
-        <h2 id="p2-title">HQ Admin: the chain view. 8 restaurants in one glance.</h2>
+        <h2 id="p2-title">Ops Web Dashboard: the control room</h2>
         <div class="platform-meta">
-          <span class="chip">Web app</span><span class="chip">Chain-level</span><span class="chip">Comparison over detail</span>
+          <span class="chip">Web app</span><span class="chip">Internal staff</span><span class="chip">High density</span>
         </div>
       </div>
     </div>
-    <p class="principle scroll-reveal">HQ Admin was the most data-starved role and the one with the most to gain. They needed to see live performance across every outlet: orders in flight, revenue ticking up, any outlet falling behind on service time. The design principle was <strong>comparison over detail.</strong> The dashboard is a table of all outlets, one row per restaurant, sortable by revenue, order count, and average service time. A red cell means something needs attention. Clicking drills in. Everything else stays high-altitude. Menu management cascades from here: create a new item, toggle availability, push to all outlets or just one.</p>
-    <div class="uflow-label scroll-reveal">HQ Admin user flow</div>
-    <div class="uflow scroll-reveal" aria-label="HQ Admin user flow">
-      <div class="step"><b>Chain dash</b><span>All outlets live</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Menu manager</b><span>Create, edit, push</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Staff</b><span>Roles & access</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Reports</b><span>Revenue, trends</span></div>
+    <p class="principle scroll-reveal">Internal ops staff are the unsung heroes. They manage <strong>200+ active jobs simultaneously</strong>, handle escalations, and keep the SLA green. The design challenge was the opposite of the customer app: <strong>maximum information density without cognitive overload.</strong> Every second they spend hunting for data is a second a customer waits.</p>
+    <div class="uflow-label scroll-reveal">Ops staff user flow</div>
+    <div class="uflow scroll-reveal" aria-label="Ops staff user flow">
+      <div class="step"><b>Login</b><span>Shift start</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Overview</b><span>Active jobs, alerts</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>New job in</b><span>Auto or manual assign</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Escalation?</b><span>SLA breach flag</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Intervene</b><span>Reassign / contact</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Job closed</b><span>Auto-logged</span></div>
     </div>
     <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/hq-01-chain-dashboard.webp" alt="Tableside HQ chain dashboard with all outlets live" loading="lazy">
+      <img src="/assets/images/onroute/ops-dashboard-01.webp" alt="Onroute ops dashboard overview with live job table and alerts" loading="lazy">
     </div>
     <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/hq-02-menu-manager.webp" alt="Tableside HQ menu manager" loading="lazy">
+      <img src="/assets/images/onroute/ops-dashboard-02.webp" alt="Onroute ops dashboard job assignment and escalation views" loading="lazy">
     </div>
     <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/hq-03-reports-staff.webp" alt="Tableside HQ reports and staff views" loading="lazy">
+      <img src="/assets/images/onroute/ops-dashboard-03.webp" alt="Onroute ops dashboard detailed job management screens" loading="lazy">
     </div>
-    <p class="screens-caption scroll-reveal">HQ console: eight outlets, one glance, edits that cascade downstream</p>
+    <p class="screens-caption scroll-reveal">Ops console: 200+ live jobs, escalations, and SLA health in one view</p>
   </div>
 </section>
 
-<!-- PLATFORM 03 - Manager -->
+<!-- PLATFORM 03 -->
 <section class="platform" aria-labelledby="p3-title">
   <div class="container">
     <div class="platform-head scroll-reveal">
       <div class="platform-num" aria-hidden="true">03</div>
       <div>
-        <h2 id="p3-title">Manager: the whole restaurant, at a glance, with the right alarm at the right moment.</h2>
+        <h2 id="p3-title">Garage Partner App: the operations hub</h2>
         <div class="platform-meta">
-          <span class="chip">Web/Tablet</span><span class="chip">Floor operations</span><span class="chip">Alerts that act</span>
+          <span class="chip">Mobile + Tablet</span><span class="chip">Partner-facing</span><span class="chip">Business management</span>
         </div>
       </div>
     </div>
-    <p class="principle scroll-reveal">The manager's job is to spot trouble before guests do. A table waiting too long. A waiter overloaded. An order stuck in the kitchen. Their view had to make all of that <strong>visible without being noisy.</strong> The centrepiece is a colour-coded floor map: amber for occupied, green for free, blue for billing, red for an alert. One glance tells them where the floor is healthy and where it isn't. Tapping any table opens a drill-down with the order, the waiter, the wait time, and one-tap actions: reassign waiter, escalate to kitchen, or override. Below the map sits a pending-attention list, automatically curated. The manager doesn't have to look for problems. The system surfaces them.</p>
-    <div class="uflow-label scroll-reveal">Manager user flow</div>
-    <div class="uflow scroll-reveal" aria-label="Manager user flow">
-      <div class="step"><b>Floor map</b><span>Live status</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Alert</b><span>Long wait flagged</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Drill down</b><span>Table detail</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Intervene</b><span>Reassign / escalate</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Resolved</b><span>Table clears</span></div>
+    <p class="principle scroll-reveal">Garage partners had <strong>zero digital presence</strong> before this. They ran their entire business on phone calls and a whiteboard. The design goal: give them a lightweight but genuinely useful business dashboard covering job pipeline, mechanic dispatch, and earnings visibility, all in one place. Available on mobile with an optimised tablet view for the garage counter.</p>
+    <div class="uflow-label scroll-reveal">Garage partner user flow</div>
+    <div class="uflow scroll-reveal" aria-label="Garage partner user flow">
+      <div class="step"><b>Receive job</b><span>Push notification</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Accept / decline</b><span>Capacity check</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Assign mechanic</b><span>Available staff list</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Track dispatch</b><span>Live mechanic map</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Job complete</b><span>Auto earnings log</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>View reports</b><span>Daily / weekly</span></div>
     </div>
     <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/manager-01-floor-map.webp" alt="Tableside manager: colour-coded floor map" loading="lazy">
+      <img src="/assets/images/onroute/garage-partner.webp" alt="Onroute garage partner app screens: job pipeline, mechanic assignment, and earnings" loading="lazy">
     </div>
-    <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/manager-02-table-drilldown.webp" alt="Tableside manager: table drill-down and interventions" loading="lazy">
-    </div>
-    <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/manager-03-pending-attention.webp" alt="Tableside manager: pending attention list" loading="lazy">
-    </div>
-    <p class="screens-caption scroll-reveal">Manager console: floor health at a glance, alerts that come to you, not the other way around</p>
+    <p class="screens-caption scroll-reveal">Garage partner app: pipeline, dispatch, and earnings replacing the whiteboard</p>
   </div>
 </section>
 
-<!-- PLATFORM 04 - Waiter -->
+<!-- PLATFORM 04 -->
 <section class="platform" aria-labelledby="p4-title">
   <div class="container">
     <div class="platform-head scroll-reveal">
       <div class="platform-num" aria-hidden="true">04</div>
       <div>
-        <h2 id="p4-title">Waiter: less to see, more to do. A task-first app for the floor.</h2>
+        <h2 id="p4-title">Mechanic App: built for the road</h2>
         <div class="platform-meta">
-          <span class="chip">Mobile</span><span class="chip">Task-first</span><span class="chip">Scoped to their tables</span>
+          <span class="chip">Mobile</span><span class="chip">Offline-first</span><span class="chip">Single-hand use</span><span class="chip">High-glare optimised</span>
         </div>
       </div>
     </div>
-    <p class="principle scroll-reveal">Waiters were the most over-served by traditional restaurant tools, given dashboards designed for managers with too much information they didn't need. I went the other way: <strong>scope the app to only their assigned tables, and surface only what needs doing right now.</strong> The home screen has two sections. <em>Action needed</em> sits at the top (kitchen ready to serve, bill requested by guest). <em>Active & waiting</em> sits below, for context. The next tap is always visible without scrolling. Manual order entry is there for guests who'd rather order verbally, running on the same backend flow as QR ordering. The only difference is who inputs it.</p>
-    <div class="uflow-label scroll-reveal">Waiter user flow</div>
-    <div class="uflow scroll-reveal" aria-label="Waiter user flow">
-      <div class="step"><b>Mark occupied</b><span>Table sat</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Take order</b><span>Or guest via QR</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Edit?</b><span>Add / remove</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Kitchen prep</b><span>In progress</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Serve</b><span>Mark served</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Bill request</b><span>Sent to cashier</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Clean & reset</b><span>Free</span></div>
+    <p class="principle scroll-reveal">Mechanics are the most overlooked user in this ecosystem. Before this app, they got a WhatsApp message with an address and figured out the rest. The design constraints were extreme: <strong>bright sunlight, one hand, possibly wearing gloves, often patchy signal.</strong> Every screen had to work at a glance. The app is offline-first: all job data caches locally and syncs when signal returns.</p>
+    <div class="uflow-label scroll-reveal">Mechanic user flow</div>
+    <div class="uflow scroll-reveal" aria-label="Mechanic user flow">
+      <div class="step"><b>Receive job</b><span>Push notification</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Accept / decline</b><span>Capacity check</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Navigate</b><span>Turn-by-turn GPS</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Arrived</b><span>Mark arrival tap</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Service done</b><span>Mark complete</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="step"><b>Earnings</b><span>Auto updated</span></div>
     </div>
     <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/waiter-01-home-orders-status.webp" alt="Tableside waiter app: home, order taking, and status screens" loading="lazy">
+      <img src="/assets/images/onroute/mechanic-app.webp" alt="Onroute mechanic app screens: job card, navigation, status updates, and earnings" loading="lazy">
     </div>
-    <p class="screens-caption scroll-reveal">Waiter app: what's next, in one tap, on the tables that are theirs</p>
-  </div>
-</section>
-
-<!-- PLATFORM 05 - KDS -->
-<section class="platform" aria-labelledby="p5-title">
-  <div class="container">
-    <div class="platform-head scroll-reveal">
-      <div class="platform-num" aria-hidden="true">05</div>
-      <div>
-        <h2 id="p5-title">Kitchen Display System: a UI for hot hands and two metres of distance.</h2>
-        <div class="platform-meta">
-          <span class="chip">KDS tablet</span><span class="chip">Colour-first</span><span class="chip">One tap per state</span>
-        </div>
-      </div>
-    </div>
-    <p class="principle scroll-reveal">The KDS is the most opinionated screen in the whole product. Most KDS designs fail because they were designed for screens, not for kitchens. I treated the design constraints as the brief: <strong>heat, noise, sweat, splatter, distance, urgency, two-metre viewing.</strong> Colour is the primary language. Amber tickets are new. Green are in progress. Blue are ready to serve. A chef walking past can tell what's happening from across the room. No reading required. Each ticket has exactly one large action button. One tap moves a ticket through the pipeline. Ticket age sits in the top-right of every card, growing more urgent visually as time passes. The kitchen doesn't need a queue manager. The screen is the queue manager.</p>
-    <div class="uflow-label scroll-reveal">KDS user flow</div>
-    <div class="uflow scroll-reveal" aria-label="KDS user flow">
-      <div class="step"><b>New ticket</b><span>Amber</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Accept</b><span>Green, cooking</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Mark ready</b><span>Blue, plated</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Waiter notified</b><span>Auto</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Cleared</b><span>Off the queue</span></div>
-    </div>
-    <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/kds-01-ticket-queue.webp" alt="Tableside KDS: colour-coded ticket queue" loading="lazy">
-    </div>
-    <p class="screens-caption scroll-reveal">KDS: readable from across the kitchen, one tap per state, ticket age as urgency</p>
-  </div>
-</section>
-
-<!-- PLATFORM 06 - Cashier -->
-<section class="platform" aria-labelledby="p6-title">
-  <div class="container">
-    <div class="platform-head scroll-reveal">
-      <div class="platform-num" aria-hidden="true">06</div>
-      <div>
-        <h2 id="p6-title">Cashier: a bill that arrives already done. Pay and close.</h2>
-        <div class="platform-meta">
-          <span class="chip">Web/Tablet</span><span class="chip">Verification, not reconstruction</span><span class="chip">Auto-populated</span>
-        </div>
-      </div>
-    </div>
-    <p class="principle scroll-reveal">The bill <strong>auto-populates the moment a table requests it,</strong> directly from the live order record. Every item, every modifier, every discount, every tax line. The cashier arrives to a complete, accurate bill. Their job becomes verification, not reconstruction. Three payment options sit beneath the bill: UPI (warm amber, the most-used default), card (cool blue), cash (deep brown). One tap to choose. Receipt goes to the customer via WhatsApp or print. The table automatically flips from billing to free on the manager's floor map. Discounts and split-bill controls live as secondary actions, present when needed, invisible when not.</p>
-    <div class="uflow-label scroll-reveal">Cashier user flow</div>
-    <div class="uflow scroll-reveal" aria-label="Cashier user flow">
-      <div class="step"><b>Bill in</b><span>From waiter</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Verify</b><span>Auto-populated</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Payment</b><span>UPI / Card / Cash</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Receipt</b><span>WhatsApp / Print</span></div><span class="arrow" aria-hidden="true">&rarr;</span>
-      <div class="step"><b>Table freed</b><span>Manager auto-updated</span></div>
-    </div>
-    <div class="screens scroll-reveal">
-      <img src="assets/images/tableside/cashier-01-bill-payment.webp" alt="Tableside cashier: auto-populated bill and payment options" loading="lazy">
-    </div>
-    <p class="screens-caption scroll-reveal">Cashier app: the bill is already right, the cashier just closes the loop</p>
+    <p class="screens-caption scroll-reveal">Mechanic app: glanceable, glove-friendly, works with zero signal</p>
   </div>
 </section>
 
@@ -896,54 +816,59 @@ h2.section-title {
   <div class="container">
     <span class="kicker scroll-reveal">Design decisions</span>
     <h2 class="section-title scroll-reveal" id="decisions-title">The choices that made the difference</h2>
-    <p class="prose scroll-reveal" style="color: var(--text-secondary); max-width: 88ch; margin-bottom: calc(var(--sp-8) * 1.5);">Designing six platforms simultaneously meant constant trade-offs between chain-wide consistency and role-specific optimisation. These four decisions shaped the whole system:</p>
+    <p class="prose scroll-reveal" style="color: var(--text-secondary); max-width: 88ch; margin-bottom: calc(var(--sp-8) * 1.5);">Designing four platforms simultaneously meant constant trade-offs. These four decisions shaped everything:</p>
     <div class="decision-grid">
       <div class="decision scroll-reveal">
         <span class="d-num">1</span>
-        <h4>One live order thread, six views on it</h4>
-        <p>Every role reads and writes to the same order record in real time. No re-entering, no reconciling, no reading things aloud across the room. This single architectural decision is what makes the "connected" in "connected dining OS" real, not marketing.</p>
+        <h4>Status as the single source of truth</h4>
+        <p>All four platforms reflect the same job state, updated in real time. No platform shows stale data. This single architectural decision eliminated the most common source of customer calls: people ringing to ask "what's happening?"</p>
       </div>
       <div class="decision scroll-reveal">
         <span class="d-num">2</span>
-        <h4>Altitude, not density</h4>
-        <p>HQ sees eight outlets. The manager sees one floor. The waiter sees their tables. The kitchen sees one ticket. Each role gets the density that matches their job, not more. Designing "less" for four of the six platforms was harder than designing "more".</p>
+        <h4>Role-based information density</h4>
+        <p>The customer sees three things: their mechanic, the ETA, the status. The ops team sees a full live table of 200+ jobs. Designing the right density for each role prevented overload on mobile and kept the ops dashboard genuinely actionable.</p>
       </div>
       <div class="decision scroll-reveal">
         <span class="d-num">3</span>
-        <h4>Colour as language, not decoration</h4>
-        <p>On the KDS and the manager's floor map, colour carries state. Amber, green, blue, red. A chef or manager reads status without reading text. This is what makes both screens usable at distance, at speed, and under pressure.</p>
+        <h4>Offline-first mechanic app</h4>
+        <p>Mechanics drive through areas with dead signal. The app caches the current job locally, address, customer contact, service type, so they can navigate and update status without connectivity. Everything syncs on reconnect.</p>
       </div>
       <div class="decision scroll-reveal">
         <span class="d-num">4</span>
-        <h4>Zero install for the highest-volume user</h4>
-        <p>Guests outnumber staff by 20 to 1 across a shift. Forcing them to download anything would have killed adoption on day one. QR to browser, table auto-filled, no account required. The design constraint set the technical direction.</p>
+        <h4>One shared design system, four platforms</h4>
+        <p>I built a lightweight shared token layer: colour, type scale, spacing, and core components that all four platforms inherit. It enforced consistency across wildly different form factors and cut design time significantly on later platforms.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHAT THIS CHANGED -->
+<!-- OUTCOME DARK -->
 <div class="outcome-dark">
   <div class="outcome-inner">
     <div class="container">
-      <span class="kicker scroll-reveal">What this changed</span>
-      <h2 class="section-title scroll-reveal">Guests never had to be taught how to order.</h2>
-      <p class="lede scroll-reveal">There's no adoption number to cite here yet, no funnel data, nothing measured post launch. What's true by design: ordering required exactly <strong>one skill</strong>, scanning a code, no download, no account, no waiter explaining how the system works. The paper process it replaced needed three people to relay one order correctly. This one needed <strong>zero</strong>, for the highest volume user in the building.</p>
+      <span class="kicker scroll-reveal">Outcome, three months post-launch</span>
+      <h2 class="section-title scroll-reveal">When you can see what's happening, you don't need to call anyone.</h2>
+      <p class="lede scroll-reveal">The clearest measure of success was call center dependency. Status-related calls dropped by <strong>42%</strong>, because customers and mechanics could now see and act on information themselves instead of calling in. Every stakeholder gained the one thing they didn't have before: visibility.</p>
+      <div class="outcome-stats">
+        <div class="o-stat scroll-reveal"><div class="num">&minus;42%</div><p>Fewer inbound calls. The majority were status checks, eliminated by live tracking.</p></div>
+        <div class="o-stat scroll-reveal"><div class="num">3&times;</div><p>Faster average dispatch. Manual phone assignment became automated job card delivery.</p></div>
+        <div class="o-stat scroll-reveal"><div class="num">&minus;67%</div><p>Fewer customer complaints. Transparency killed the anxiety that drove most of them.</p></div>
+        <div class="o-stat scroll-reveal"><div class="num">89%</div><p>Mechanic job acceptance. Clarity on payout, distance, and job type drove confidence.</p></div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- LEARNINGS -->
 <section aria-labelledby="learn-title">
-
   <div class="container">
     <span class="kicker scroll-reveal">What I learned</span>
-    <h2 class="section-title scroll-reveal" id="learn-title">Designing for a chain means designing for two truths at once</h2>
+    <h2 class="section-title scroll-reveal" id="learn-title">Design the system before designing the screens</h2>
     <div class="prose scroll-reveal">
-      <p>HQ needs to see patterns across eight restaurants. The kitchen staff needs to see one ticket, right in front of them. These are opposite design problems solved in the same system. Designing at both altitudes at once, <strong>chain-wide clarity and single-screen task speed,</strong> was the most demanding part of this project.</p>
-      <p>In food service, <strong>speed is empathy.</strong> Every second a customer waits, every time a waiter walks to check an order, every time a cashier hunts for a bill, those are friction moments that compound into a bad experience. Designing each one away, systematically, was the heart of this work.</p>
+      <p>The most important document I made on this project wasn't a wireframe. It was the ecosystem map showing how data had to flow between all four user types. Getting every stakeholder to agree on that map <strong>before I opened Figma</strong> saved weeks of rework.</p>
+      <p>I also learned how differently each user type experiences "urgency". For the customer, urgency is emotional, they're stranded and anxious. For the ops agent, it's operational, an SLA number turning red. For the mechanic, it's physical, they're in traffic. Designing for the same moment from four different vantage points is what systems thinking actually means in practice.</p>
     </div>
-    <p class="learn-quote scroll-reveal">Six roles, six worlds, <span class="hl">one live order</span> holding them together.</p>
+    <p class="learn-quote scroll-reveal">The best design decision I made was <span class="hl">choosing not to design</span> until I understood all four users equally well.</p>
   </div>
 </section>
 
@@ -953,11 +878,11 @@ h2.section-title {
     <span class="kicker scroll-reveal">Keep going</span>
     <h2 class="scroll-reveal">Want the full story behind the decisions?</h2>
     <div class="cta-actions scroll-reveal">
-      <a href="./#contact" class="btn btn-primary">Let's talk
+      <a href="/#contact" class="btn btn-primary">Let's talk
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="onroute.html" class="btn btn-ghost">See the Onroute case study</a>
-      <a href="ai.html" class="btn btn-ghost">How I design with AI</a>
+      <a href="/#work" class="btn btn-ghost">More case studies</a>
+      <a href="/ai/" class="btn btn-ghost">How I design with AI</a>
     </div>
   </div>
 </section>
@@ -968,8 +893,8 @@ h2.section-title {
   <div class="container footer-inner">
     <span>&copy; 2026 Jaydeep Jadhav. Designed and crafted with intention.</span>
     <ul class="footer-links">
-      <li><a href="./#work">Work</a></li>
-      <li><a href="./#writing">Writing</a></li>
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/#writing">Writing</a></li>
       <li><a href="https://www.linkedin.com/in/jaydeep-jadhav-9a366818b" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
     </ul>
   </div>
